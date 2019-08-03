@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Metadata</h1>
+    <p>Text here<p>
+    <hr/>
+    <h2>Researchers</h2>
+    <p>Those are the researchers around the world that are carrying our more coding experiments<p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Researcher's Name</th>
+          <th>Quantity of Papers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for author in most_common_authors %}
+          <tr>
+            <td> {{loop.index}} </td>
+            <td> {{ author[0] }} </td>
+            <td> {{ author[1] }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr/>
+    <h2>Institutions</h2>
+    <p>Those are the affliiations around the world that are carrying our more coding experiments<p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Institution's Name</th>
+          <th>Quantity of Papers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for institution in most_common_institutions %}
+          <tr>
+            <td> {{loop.index}} </td>
+            <td> {{ institution[0] }} </td>
+            <td> {{ institution[1] }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <hr/>
+    <h2>Years</h2>
+    <p>This is the distribution of coding experiments during the years<p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart" id="bargraph1">
+                <script>
+                    var graphs = {{plot_years | safe}};
+                    var layout = {
+                          xaxis: {
+                            autotick: false,
+                            ticks: "outside",
+                            tick0: 0,
+                            dtick: 1
+                          }
+                      };
+                    Plotly.newPlot('bargraph1',graphs,layout);
+                </script>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <h2>Venues</h2>
+    <p>This is the distribution of coding experiments in venues<p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart" id="bargraph2">
+                <script>
+                    var graphs = {{plot_venues | safe}};
+                    var layout = {
+                          xaxis: {
+                            autotick: false,
+                            ticks: "outside",
+                            tick0: 0,
+                            dtick: 1
+                          }
+                      };
+                    Plotly.newPlot('bargraph2',graphs,layout);
+                </script>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <table data-toggle="table" data-sort-stable="true" data-sort-name="quantity"
+    data-sort-order="desc" data-search="true" data-visible-search="true">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Researcher's Name</th>
+          <th data-field="quantity" data-sortable="true">Quantity of Papers</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for author in most_common_authors %}
+          <tr>
+            <td> {{ author[0] }} </td>
+            <td> {{ author[1] }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock content %}

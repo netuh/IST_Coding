@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <table data-toggle="table" data-sort-stable="true" data-sort-name="quantity"
+  data-sort-order="desc">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Guideline</th>
+          <th data-field="year" data-sortable="true">Publication Year</th>
+          <th data-field="quantity" data-sortable="true">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sampling in samplings %}
+          <tr>
+            <td> {{ sampling.recruiting_strategy }}</td>
+            <td> {{ sampling.power_analysis }} </td>
+            <td> {{ sampling.publication.title }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock content %}

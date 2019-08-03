@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <table data-toggle="table" data-sort-stable="true" data-sort-name="quantity"
+  data-sort-order="desc">
+      <thead>
+        <tr>
+          <th data-field="name" data-sortable="true">Guideline</th>
+          <th data-field="year" data-sortable="true">Publication Year</th>
+          <th data-field="quantity" data-sortable="true">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for guideline in guidelines %}
+          <tr>
+            <td>
+              <a href="{{ url_for('guideline.guide', guide_id=guideline.guide_id) }}">
+                  {{ guideline.title }}
+              </a>
+            </td>
+            <td> {{ guideline.year }} </td>
+            <td> {{ guideline.referenced_by|length }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock content %}

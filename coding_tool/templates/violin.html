@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Venues</h2>
+    <p>This is the distribution of coding experiments in venues<p>
+    <div class="row">
+        <div class="chart" id="violingraph">
+            <script>
+                var graphs = {{plot | safe}};
+                var layout = {
+                  height: 700,
+                  width: 700
+                };
+                Plotly.newPlot('violingraph',graphs,layout);
+            </script>
+        </div>
+    </div>
+{% endblock content %}

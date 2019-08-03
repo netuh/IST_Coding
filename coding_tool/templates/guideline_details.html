@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ guideline.authors }}</a>
+        <small class="text-muted">{{ guideline.year }}</small>
+      </div>
+      <h2 class="article-title">{{ guideline.title }}</h2>
+      <a class="mr-2" href="{{guideline.address}}">{{ guideline.address }}</a>
+    </div>
+  </article>
+{% endblock content %}
