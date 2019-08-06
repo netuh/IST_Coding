@@ -9,13 +9,6 @@ association_guideline = db.Table('association_guideline', db.metadata,
                                            db.ForeignKey('guideline.guide_id')),
                                  )
 
-# association_sample = db.Table('association_sample', db.metadata,
-#                               db.Column('pub_id', db.Integer,
-#                                         db.ForeignKey('publication.pub_id')),
-#                               db.Column('sample_id', db.Integer,
-#                                         db.ForeignKey('sampling.sample_id')),
-#                               )
-
 association_profile = db.Table('association_profile', db.metadata,
                                db.Column('profile_id', db.Integer,
                                          db.ForeignKey('sampling_profile.profile_id')),
@@ -60,13 +53,29 @@ class Sampling(db.Model):
     power_analysis = db.Column(db.Integer, default=0)
     pub_id = db.Column(db.Integer, db.ForeignKey(
         'publication.pub_id'), nullable=False)
-    # sample_of = db.relationship('Publication', secondary=association_sample,
-    #                             backref=db.backref('samples', lazy='dynamic'))
     profiles = db.relationship(
         'SamplingProfile', secondary=association_profile)
 
     def __repr__(self):
         return f"Sampling('{self.recruitment_type}', '{self.sample_size}')"
+
+    def sample_classification(self):
+        has_student = False
+        has_professional = False
+        total = 0
+        classification = 0
+        for a_profile in self.profiles:
+            if (a_profile.profile == 'professional'):
+                has_professional = True
+            else:
+                has_student = True
+            total += a_profile.quantity
+        if (has_student and has_professional):
+            return 'mix', total
+        elif (has_professional):
+            return 'professional_only', total
+        else:
+            return 'student_only', total
 
 
 class SamplingProfile(db.Model):

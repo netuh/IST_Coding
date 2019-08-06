@@ -18,28 +18,44 @@ def all_sampling():
 
 @sampling.route("/sampling/distribution")
 def sampling_distribution():
-    profiles = SamplingProfile.query.all()
+    profiles = Sampling.query.all()
     word_list = []
     c = Counter()
     for a_profile in profiles:
-        word_list.append(a_profile.profile.strip().lower())
+        classification, quantity = a_profile.sample_classification()
+        word_list.append(classification)
     c.update(word_list)
     pie = create_plot_pie(c)
     return render_template('distribution.html', plot=pie)
 
 
-@sampling.route("/sampling/violin")
-def sampling_violin():
-    profiles = SamplingProfile.query.all()
-    total_data = []
-    professional_data = []
-    student_data = []
+@sampling.route("/sampling/by_classification")
+def sampling_classification():
+    profiles = Sampling.query.all()
+    dic_classification = {}
+    dic_classification['total'] = []
+    dic_classification['mix'] = []
+    dic_classification['professional_only'] = []
+    dic_classification['student_only'] = []
     for a_profile in profiles:
-        total_data.append(int(a_profile.quantity))
-        if (a_profile.profile == 'professional'):
-            professional_data.append(int(a_profile.quantity))
-        else:
-            student_data.append(int(a_profile.quantity))
-    violin = create_plot_violin(
-        total=total_data, professionals=professional_data, students=student_data)
-    return render_template('violin.html', plot=violin)
+        classification, quantity = a_profile.sample_classification()
+        dic_classification[classification].append(quantity)
+        dic_classification['total'].append(quantity)
+    violin = create_plot_violin(dic_classification)
+    return render_template('by_classification.html', plot=violin)
+
+
+@sampling.route("/sampling/by_characteristics")
+def sampling_characteristics():
+    profiles = Sampling.query.all()
+    dic_classification = {}
+    dic_classification['total'] = []
+    dic_classification['mix'] = []
+    dic_classification['professional_only'] = []
+    dic_classification['student_only'] = []
+    for a_profile in profiles:
+        classification, quantity = a_profile.sample_classification()
+        dic_classification[classification].append(quantity)
+        dic_classification['total'].append(quantity)
+    violin = create_plot_violin(dic_classification)
+    return render_template('by_classification.html', plot=violin)
