@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Venues</h2>
+    <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+            </fieldset>
+            <div class="form-group">
+                {{ form.selectedCharac(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart" id="bargraph1">
+                <script>
+                    var graphs = {{plot | safe}};
+                    var layout = {
+                          xaxis: {
+                            tickangle: -45,
+                            autotick: false,
+                            ticks: "outside",
+                            tick0: 0,
+                            dtick: 1
+                          }
+                      };
+                    Plotly.newPlot('bargraph1',graphs,layout);
+                </script>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
