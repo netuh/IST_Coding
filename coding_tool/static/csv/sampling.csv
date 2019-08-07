@@ -1,6 +1,6 @@
 sample_id|pub_id|sample_profile|sample_characteristics|recruiting_strategy|power_analysis
-1|1|professional:11|pro-JavaExp:5.4; pro-ProfExp:5.2; pro-EclipseExp:5.1||0
-2|2|gradstudent:65|st-JavaExp:5.4; st-ProfExp:5.2; st-EclipseExp:5.1|paid|1
+1|1|professional:11|JavaExp:5.4; ProfExp:5.2; EclipseExp:5.1||0
+2|2|gradstudent:65|JavaExp:5.4; ProfExp:5.2; EclipseExp:5.1|paid|1
 3|3|undergradstudent:8;gradstudent:4|Master:3; PhD:1|course|0
 4|4|gradstudent:58||course|0
 5|5|undergradstudent:50||course|0
@@ -10,71 +10,71 @@ sample_id|pub_id|sample_profile|sample_characteristics|recruiting_strategy|power
 9|7|professional:30|dropped:2; discated:11|work|0
 10|8|gradstudent:21||course|0
 11|9|professional:31||volunteer|2
-12|10|gradstudent:27|male:26;female:1;dropped:3;st-Exp:2.6|course|2
+12|10|gradstudent:27|male:26;female:1;dropped:3;Exp:2.6|course|2
 13|11|gradStudent:21;undergradStudent:17||course|0
 14|12|gradStudent:61;undergradStudent:13|PhD:22; master:39; bachelor:13|course|1
 15|13|professional:2;gradStudent:20;undergradStudent:9|phd:16;master:4;bachelor:9|course|0
 16|14|professional:6;gradStudent:3;undergradStudent:3|master:3;bachelor:3|unclear|0
-17|15|Professional:28|pro-location:Spain; pro-ProgExp:5.1; dropped:2|unclear|1
+17|15|Professional:28|location:Spain; ProgExp:5.1; dropped:2|unclear|1
 18|16|undergradstudent:95|StudSem:1st|course|0
-19|16|Professional:5|pro-location: Thailand|course|0
-20|17|undergradstudent:11; professional:7|mix-ProgExp:6; mix-JavaExp:3.5; mix-ProfExp:7.3; JUnitExp:4.3; dropped:7|course;paid|1
-21|18|gradstudent:56|st-ProgExp:0.85|course|0
+19|16|Professional:5|location: Thailand|course|0
+20|17|undergradstudent:11; professional:7|ProgExp:6; JavaExp:3.5; ProfExp:7.3; JUnitExp:4.3; dropped:7|course;paid|1
+21|18|gradstudent:56|ProgExp:0.85|course|0
 22|19|gradstudent:24||No reward|0
 23|20|gradstudent:21; professional:23||paid|1
 24|21|undergradStudent:20|studSem:5+|unclear|1
 25|22|professional:17||No Reward|1
-26|23|professional:65|pro-location:europe; dropped:1|work|0
-27|24|professional:16|age:36;pro-JavaExp:11; pro-JavaScriptExp: 4.7; pro-PearlExp:8.8; pro-PHPExp:8.6; RubyExp:11|concourse|0
+26|23|professional:65|location:europe; dropped:1|work|0
+27|24|professional:16|age:36;JavaExp:11; JavaScriptExp: 4.7; PearlExp:8.8; PHPExp:8.6; RubyExp:11|concourse|0
 28|25|gradstudent:40||No Reward|1
-29|26|gradstudent:33; undergradstudent:25|ProfExpCount:15; st-ProfExp: 2.6|course|1
-30|27|undergradStudent:27|st-ProgExp:6; LOC:2000; dropped:3|course|1
+29|26|gradstudent:33; undergradstudent:25|ProfExpCount:15; ProfExp: 2.6|course|1
+30|27|undergradStudent:27|ProgExp:6; LOC:2000; dropped:3|course|1
 31|28|undergradStudent:31; gradstudent: 113|dropped:18|course|0
 32|29|undergradStudent:84|StudSem:1+|course|0
-33|30|gradstudent:16|st-ProgExp:4.7; st-JavaExp:2.2; dropped:4|course|0
+33|30|gradstudent:16|ProgExp:4.7; JavaExp:2.2; dropped:4|course|0
 34|31|student:69; professional:10||course|0
-35|31|Professional:43|pro-education:4; pro-profExp:6.2; pro-ooExp:2.2; dropped:1|paid|1
+35|31|Professional:43|education:4; profExp:6.2; ooExp:2.2; dropped:1|paid|1
 36|32|gradstudent:40|dropped:5|No Reward|0
-37|33|gradStudent: 130|st-profExp: 2; st-testExp: 1.1|course|2
-38|34|undergradstudent:53|st-javaExp; st-CExp|unclear|1
+37|33|gradStudent: 130|profExp: 2; testExp: 1.1|course|2
+38|34|undergradstudent:53|javaExp; CExp|unclear|1
 39|35|Professional:24||unclear|0
-40|36|gradstudent:54|st-progExp; st-OOExp; st-UmlExp; dropped: 18|course|0
+40|36|gradstudent:54|progExp; OOExp; UmlExp; dropped: 18|course|0
 41|37|gradstudent:36||course|0
 42|38|undergradstudent:68; gradstudent:60||unclear|0
 43|39|student:59; undergradstudent:66|dropped:1|paid|0
 44|40|undergradstudent:39||course|0
-45|41|gradStudent: 26|st-progExp: 5.81|unclear|0
-46|42|gradstudent: 29|st-progExp:5.32; st-JunitExp:6.27; LOC:8886|course|2
-47|43|gradStudent:24|st-progExp:3.7; st-ProfExp:1.7|No Reward|0
+45|41|gradStudent: 26|progExp: 5.81|unclear|0
+46|42|gradstudent: 29|progExp:5.32; JunitExp:6.27; LOC:8886|course|2
+47|43|gradStudent:24|progExp:3.7; ProfExp:1.7|No Reward|0
 48|44|gradstudent: 72|dropped:5|course|2
 49|45|gradStudent:63; undergradstudent:55||course|0
 50|46|GradStudent:67||course|0
-51|47|gradstudent:15|st-progExp:7.5; st-javaExp:3|course|0
+51|47|gradstudent:15|progExp:7.5; javaExp:3|course|0
 52|48|undergradstudent:93||course|0
 53|49|undergradstudent:159||course|0
 54|50|undergradstudent:27; gradstudent: 32; Professional: 99||unclear|0
 55|51|undergradstudent:24|dropped:11|course|0
-56|52|professional:17|pro-location: US; loc: 1863; pro-ProfExp: 3.7; age: 27; pro-progLang: 2.65|paid|0
-57|53|professional: 196|pro-location: Noway, Sweden, UK; dropped:1|paid|2
-58|54|gradstudent:10|st-progExp:8.35; st-javaExp:4.7; st-eclipseExp:2.1|course|0
+56|52|professional:17|location: US; loc: 1863; ProfExp: 3.7; age: 27; progLang: 2.65|paid|0
+57|53|professional: 196|location: Noway, Sweden, UK; dropped:1|paid|2
+58|54|gradstudent:10|progExp:8.35; javaExp:4.7; eclipseExp:2.1|course|0
 59|55|professional:8;gradstudent:26|PhD:14; professor:2;postdocs:3|No Reward|0
 60|56|professional:5;gradStudent:5|age: 26|unclear|2
 61|57|gradStudent:16||course|0
 62|57|undergradstudent:20||course|0
 63|58|undergradstudent:29|dropped:11|course|0
-64|59|professional:90|pro-javaExp:2.4; age:24; pro-progExp:3.7; pro-progLang: 3|paid|2
-65|60|professional:30|pro-ProfExp:4.8; pro-javaExp; EclipseExp|No Reward|0
+64|59|professional:90|javaExp:2.4; age:24; progExp:3.7; progLang: 3|paid|2
+65|60|professional:30|ProfExp:4.8; javaExp; EclipseExp|No Reward|0
 66|61|professional:30||No Reward|2
 67|62|undergradstudent:42||course|0
 68|62|undergradstudent:38|age:24; dropped:1|paid|0
-69|63|undergradstudent:20|st-javaExp: 2.1; st-progExp:7|course|0
-70|63|undergradstudent:18|st-javaExp: 2.1; st-progExp:7|course|0
-71|64|professional:12|pro-location: Korea|paid|0
-72|65|student:25|gender; age:24; st-C++Exp:2|course|0
-73|65|student:18|gender; age:24; st-C++Exp:2|course|0
-74|65|student:10|gender; age:24; st-C++Exp:2|course|0
+69|63|undergradstudent:20|javaExp: 2.1; progExp:7|course|0
+70|63|undergradstudent:18|javaExp: 2.1; progExp:7|course|0
+71|64|professional:12|location: Korea|paid|0
+72|65|student:25|gender; age:24; C++Exp:2|course|0
+73|65|student:18|gender; age:24; C++Exp:2|course|0
+74|65|student:10|gender; age:24; C++Exp:2|course|0
 75|66|gradstudent:4||unclear|0
 76|67|gradstudent:57|dropped:1|course|0
 77|67|gradstudent:58||course|0
 78|68|undergradstudent:20||course|0
-79|69|professional: 27|pro-location: Brazil|paid|0
+79|69|professional: 27|location: Brazil|paid|0

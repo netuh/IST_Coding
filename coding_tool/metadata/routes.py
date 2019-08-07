@@ -26,26 +26,6 @@ def institutions():
     return render_template('institution.html', most_common_institutions=c.items())
 
 
-@metadata.route("/metadata/years")
-def years():
-    c = Counter()
-    publications = Publication.query.all()
-    for pub in publications:
-        c.update([pub.year])
-    bar = create_plot(c)
-    return render_template('plot.html', plot=bar)
-
-
-@metadata.route("/metadata/venues")
-def venues():
-    c = Counter()
-    publications = Publication.query.all()
-    for pub in publications:
-        c.update([pub.venue])
-    bar = create_plot(c)
-    return render_template('plot.html', plot=bar)
-
-
 @metadata.route("/metadata")
 def metadata_main():
     counter_venues = Counter()

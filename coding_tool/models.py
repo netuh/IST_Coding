@@ -16,6 +16,13 @@ association_profile = db.Table('association_profile', db.metadata,
                                          db.ForeignKey('sampling.sample_id')),
                                )
 
+association_charac = db.Table('association_charac', db.metadata,
+                              db.Column('charac_id', db.Integer,
+                                        db.ForeignKey('sampling_charac.charac_id')),
+                              db.Column('sample_id', db.Integer,
+                                        db.ForeignKey('sampling.sample_id')),
+                              )
+
 
 class Publication(db.Model):
     __tablename__ = 'publication'
@@ -55,6 +62,8 @@ class Sampling(db.Model):
         'publication.pub_id'), nullable=False)
     profiles = db.relationship(
         'SamplingProfile', secondary=association_profile)
+    characteristics = db.relationship(
+        'SamplingCharacteristic', secondary=association_charac)
 
     def __repr__(self):
         return f"Sampling('{self.recruitment_type}', '{self.sample_size}')"
@@ -83,3 +92,10 @@ class SamplingProfile(db.Model):
     profile_id = db.Column(db.Integer, primary_key=True)
     profile = db.Column(db.String(20), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+
+
+class SamplingCharacteristic(db.Model):
+    __tablename__ = 'sampling_charac'
+    charac_id = db.Column(db.Integer, primary_key=True)
+    charac = db.Column(db.String(20), nullable=False)
+    info = db.Column(db.String(100), nullable=True)

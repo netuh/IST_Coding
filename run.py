@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile
+from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic
 from coding_tool import db
 import pandas as pd
 import os
@@ -78,8 +78,17 @@ def seed_sampling():
       p = profile.split(':')
       a = SamplingProfile(profile=p[0], quantity=int(p[1]))
       s.profiles.append(a)
+
+    if isinstance(sample_characteristics, str):
+      for charac in sample_characteristics.lower().split(';'):
+        print(f'charac={charac.replace(" ", "")}')
+        p = charac.replace(" ", "").split(':')
+        if len(p) > 1:
+          a = SamplingCharacteristic(charac=p[0], info=p[1])
+        else:
+          a = SamplingCharacteristic(charac=p[0])
+        s.characteristics.append(a)
     db.session.add(s)
-    db.session.commit()
   db.session.commit()
 
 
