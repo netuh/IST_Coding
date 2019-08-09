@@ -72,8 +72,10 @@ class Experiment(db.Model):
     exp_id = db.Column(db.Integer, primary_key=True)
     pub_id = db.Column(db.Integer, db.ForeignKey('publication.pub_id'))
     samples = db.relationship("Sampling", backref="exp", lazy=True)
-    design_id = db.Column(db.Integer, db.ForeignKey(
-        'experiment_design.design_id'), nullable=True)
+    design = db.relationship("ExperimentDesign", uselist=False,
+                             back_populates="experiment")
+    # design_id = db.Column(db.Integer, db.ForeignKey(
+    #     'experiment_design.design_id'), nullable=True)
 
 
 class Sampling(db.Model):
@@ -125,9 +127,9 @@ class SamplingCharacteristic(db.Model):
 
 class ExperimentDesign(db.Model):
     __tablename__ = 'experiment_design'
-    exp_id = db.Column(db.Integer, db.ForeignKey(
-        'experiment.exp_id'), nullable=False)
     design_id = db.Column(db.Integer, primary_key=True)
+    experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
+    experiment = db.relationship("Experiment", back_populates="design")
     factor_quantity = db.Column(db.Integer, nullable=False)
     design = db.Column(db.String(20), nullable=False)
     is_explicity_design = db.Column(db.Integer, nullable=False)

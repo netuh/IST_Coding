@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect
 from collections import Counter
 
 from coding_tool.models import Publication, Sampling, SamplingProfile
-from coding_tool.sampling.util import create_plot_pie, create_plot_violin, create_plot_bar
+from coding_tool.util import create_plot_pie, create_plot_violin, create_plot_bar
 from coding_tool.sampling.forms import SelectingCharacteristicForm
 
 

@@ -112,7 +112,7 @@ def seed_design():
     with open(file_name, 'r') as file:
         df = pd.read_csv(file, sep='|')
     for index, row in df.iterrows():
-        paper_id = int(row['paper_id'])
+        exp_id = int(row['exp_id'])
         factor_quantity = int(row['factor_quantity'])
         design = row['design']
         explicity_design = row['explicity_design']
@@ -120,6 +120,10 @@ def seed_design():
         trial_duration = row['trial_duration']
         s = ExperimentDesign(factor_quantity=factor_quantity, design=design,
                              is_explicity_design=explicity_design)
+        p = Experiment.query.get(int(exp_id))
+        p.design = s
+        db.session.add(s)
+        db.session.commit()
         # paper_id|factor_quantity|design|explicity_design|tasks|trial_duration
 
 
@@ -129,7 +133,7 @@ def before_first_request_func():
     seed_guidelines()
     seed_experiments()
     seed_sampling()
-    # seed_design()
+    seed_design()
 
 
 if __name__ == '__main__':

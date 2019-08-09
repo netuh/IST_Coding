@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from collections import Counter
 from coding_tool.models import Publication
-from coding_tool.metadata.util import create_plot
+from coding_tool.util import create_plot_bar
 
 import numpy as np
 
@@ -39,8 +39,8 @@ def metadata_main():
         counter_institutions.update(map(str.strip, pub.institution.split(';')))
         counter_authors.update(map(str.strip, pub.authors.split(';')))
 
-    bar_venues = create_plot(counter_venues)
-    bar_years = create_plot(counter_years)
+    bar_venues = create_plot_bar(counter_venues)
+    bar_years = create_plot_bar(counter_years)
     return render_template('metadata.html', plot_venues=bar_venues, plot_years=bar_years,
                            most_common_authors=counter_authors.most_common(11),
                            most_common_institutions=counter_institutions.most_common(7))

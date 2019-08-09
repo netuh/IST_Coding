@@ -2,10 +2,6 @@
 
 
 #all virtual environment
-venv/*
+venv/
 coding_too/site.db
-coding_too/__pycache__/*
-coding_too/errors/__pycache__/*
-coding_too/guideline/__pycache__/*
-coding_too/main/__pycache__/*
-coding_too/metadata/__pycache__/*
+**/logs/__pycache__
