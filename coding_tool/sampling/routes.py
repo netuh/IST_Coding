@@ -11,12 +11,6 @@ import numpy as np
 sampling = Blueprint('sampling', __name__)
 
 
-@sampling.route("/samplings")
-def all_sampling():
-    samplings = Sampling.query.all()
-    return render_template('samplings.html', samplings=samplings)
-
-
 @sampling.route("/sampling/distribution")
 def sampling_distribution():
     profiles = Sampling.query.all()

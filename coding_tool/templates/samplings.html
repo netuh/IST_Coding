@@ -12,9 +12,9 @@
       <tbody>
         {% for sampling in samplings %}
           <tr>
+            <td> {{ sampling.exp.pub.title }} </td>
             <td> {{ sampling.recruiting_strategy }}</td>
             <td> {{ sampling.power_analysis }} </td>
-            <td> {{ sampling.publication.title }} </td>
           </tr>
         {% endfor %}
       </tbody>

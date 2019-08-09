@@ -2,6 +2,13 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from coding_tool import db
 
+association_experiment = db.Table('association_experiment', db.metadata,
+                                  db.Column('pub_id', db.Integer,
+                                            db.ForeignKey('publication.pub_id')),
+                                  db.Column('exp_id', db.Integer,
+                                            db.ForeignKey('experiment.exp_id')),
+                                  )
+
 association_guideline = db.Table('association_guideline', db.metadata,
                                  db.Column('pub_id', db.Integer,
                                            db.ForeignKey('publication.pub_id')),
@@ -23,6 +30,13 @@ association_charac = db.Table('association_charac', db.metadata,
                                         db.ForeignKey('sampling.sample_id')),
                               )
 
+association_task = db.Table('association_task', db.metadata,
+                            db.Column('design_id', db.Integer,
+                                      db.ForeignKey('experiment_design.design_id')),
+                            db.Column('task_id', db.Integer,
+                                      db.ForeignKey('task.task_id')),
+                            )
+
 
 class Publication(db.Model):
     __tablename__ = 'publication'
@@ -33,7 +47,7 @@ class Publication(db.Model):
     authors = db.Column(db.String(200), nullable=False)
     institution = db.Column(db.String(200), nullable=False)
     keywords = db.Column(db.String(200), nullable=False)
-    samples = db.relationship('Sampling', backref='publication', lazy=True)
+    experiments = db.relationship("Experiment", backref="pub", lazy='dynamic')
 
     def __repr__(self):
         return f"Publication('{self.title}', '{self.year}')"
@@ -53,13 +67,21 @@ class Guideline(db.Model):
         return f"Guideline('{self.title}', '{self.year}')"
 
 
+class Experiment(db.Model):
+    __tablename__ = 'experiment'
+    exp_id = db.Column(db.Integer, primary_key=True)
+    pub_id = db.Column(db.Integer, db.ForeignKey('publication.pub_id'))
+    samples = db.relationship("Sampling", backref="exp", lazy=True)
+    design_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'), nullable=True)
+
+
 class Sampling(db.Model):
     __tablename__ = 'sampling'
     sample_id = db.Column(db.Integer, primary_key=True)
+    exp_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
     recruiting_strategy = db.Column(db.String(200))
     power_analysis = db.Column(db.Integer, default=0)
-    pub_id = db.Column(db.Integer, db.ForeignKey(
-        'publication.pub_id'), nullable=False)
     profiles = db.relationship(
         'SamplingProfile', secondary=association_profile)
     characteristics = db.relationship(
@@ -99,3 +121,22 @@ class SamplingCharacteristic(db.Model):
     charac_id = db.Column(db.Integer, primary_key=True)
     charac = db.Column(db.String(20), nullable=False)
     info = db.Column(db.String(100), nullable=True)
+
+
+class ExperimentDesign(db.Model):
+    __tablename__ = 'experiment_design'
+    exp_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment.exp_id'), nullable=False)
+    design_id = db.Column(db.Integer, primary_key=True)
+    factor_quantity = db.Column(db.Integer, nullable=False)
+    design = db.Column(db.String(20), nullable=False)
+    is_explicity_design = db.Column(db.Integer, nullable=False)
+    info = db.Column(db.String(100), nullable=True)
+    tasks = db.relationship('Task', secondary=association_task)
+
+
+class Task(db.Model):
+    __tablename__ = 'task'
+    task_id = db.Column(db.Integer, primary_key=True)
+    task_type = db.Column(db.String(20), nullable=False)
+    quantity = db.Column(db.Integer, nullable=True)
