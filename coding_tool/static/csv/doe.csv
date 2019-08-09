@@ -1,0 +1,80 @@
+exp_id|factor_quantity|design|explicity_design|tasks|trial_duration
+1|1|Completely Randomized Desgin|0|compreension:2|long:1-month
+2|1|Paired Comparison Design|1|construction:1|long:1-month
+3|1|Paired Comparison Design|0|test:1|nc
+4|1|Paired Comparison Design|1|test:2|short:2-hours
+5|1|Paired Comparison Design|1|maintenance:8|long:4-month
+6|3|Paired Comparison Design|1|design:1; construction:1|long:9-month
+7|3|Paired Comparison Design|1|design:1; construction:1|long:4-month
+8|3|Paired Comparison Design|1|design:1; construction:1|nc
+9|1|Paired Comparison Design|1|construction:1; test:1|short:2-hours
+10|1|Paired Comparison Design|1|construction:2; test:2|short:12-hours
+11|1|Paired Comparison Design|1|construction:2; test:2|nc
+12|2|Two-way Mixed Model ANOVA Design|1|maintenance:5|short:30-hours
+13|1|Completely Randomized Desgin|0|maintenance:2|short:2-hours
+14|1|Completely Randomized Desgin|0|compreension:2; maintenance:2|short:2-hours
+15|1|Randomized Complete Block Design|1|maintenance:2|nc
+16|1|Paired Comparison Design|1|maintenance:4|nc
+17|1|Paired Comparison Design|0|maintenance:1; test:1|short:5-hours
+18|1|Completely Randomized Desgin|0|inspection:1; design:1; construction:2|short:2-hours
+19|1|Completely Randomized Desgin|0|inspection:1; design:1; construction:2|short:2-hours
+20|1|Completely Randomized Desgin|0|construction:1|short:8-hours
+21|1|Completely Randomized Desgin|0|design:2; construction:1; test:1|long:2-weeks
+22|1|Completely Randomized Desgin|0|inspection:1|nc
+23|1|Paired Comparison Design|1|maintenance:1|short:3-hours
+24|2|Completely Randomized Desgin|0|maintenance:9|nc
+25|1|Completely Randomized Desgin|0|Maintenance:4|nc
+26|2|Factorial Design|0|Debuging:19|short:13-minutes
+27|1|Completely Randomized Desgin|0|construction:1|nc
+28|1|Completely Randomized Desgin|0|maintenance:5|nc
+29|1|Completely Randomized Desgin|0|construction:1; maintenance:12|short:3-hours
+30|2|Factorial Design|0|Construction:1; inspection:1; debuging:1; test:1|short:1.5-hours
+31|1|Completely Randomized Desgin|0|construction: 7; Maintenance: 2|nc
+32|1|Completely Randomized Desgin|1|inspection: 1|short:4-hours
+33|1|Completely Randomized Desgin|1|Construction:1; Test:1|short:100-hours
+34|1|Completely Randomized Desgin|0|construction:1; Maintenance:1; test:1|nc
+35|2|Factorial Design|1|maintenance:4; compreension:4|nc
+36|1|Completely Randomized Desgin|0|Compreension:3; maintenance:1; Debuging:1|nc
+37|1|Completely Randomized Desgin|0|test:1|nc
+38|1|Paired Comparison Design|0|Inspection:2|short:1.5-hours
+39|1|Completely Randomized Desgin|0|construction:1|nc
+40|1|Paired Comparison Design|0|inspection:2|nc
+41|1|Completely Randomized Desgin|0|compreension:1|nc
+42|1|Randomized Complete Block Design|0|construction:4|nc
+43|2|Factorial Design|1|construction:1; maintenance:3|nc
+44|1|Completely Randomized Desgin|0|construction:1|nc
+45|1|Completely Randomized Desgin|0|construction:3|nc
+46|1|Randomized Complete Block Design|0|construction:2|nc
+47|1|Completely Randomized Desgin|0|maintenance:4; test:4|nc
+48|1|Completely Randomized Desgin|1|construction:2; test:2|nc
+49|6|Factorial Design|1|maintenance:4|long:1-month
+50|1|Completely Randomized Desgin|0|Compreension:2; Debuging:1|short:2-hours
+51|1|Completely Randomized Desgin|1|construction:1; maintenance:10|nc
+52|1|Paired Comparison Design|0|maintenance:2|nc
+53|2|Factorial Design|1|inspection:2|nc
+54|1|Paired Comparison Design|1|construction:1; maintenance: 3|nc
+55|1|Completely Randomized Desgin|0|construction:1; test:1|nc
+56|1|Paired Comparison Design|1|maintenance: 2|nc
+57|3|Factorial Design|1|construction:1; maintenance:4|nc
+58|1|Completely Randomized Desgin|0|maintenance:1; debuging:1; test:1|short:1-hours
+59|1|Completely Randomized Desgin|0|compreension:1|short:1.5-hours
+60|1|Incomplete Within-subjects Design|1|maintenance:2|short:3-hours
+61|1|Completely Randomized Desgin|0|maintenance:2|short:2-hours
+62|1|Completely Randomized Desgin|0|maintenance:2|short:2-hours
+63|2|Factorial Design|1|inspection:1|long:3-weeks
+64|3|Factorial Design|1|maintenance:1|short:2-hours
+65|1|Completely Randomized Desgin|0|Compreension:3; construction:7|short:2-hours
+66|1|Completely Randomized Desgin|0|construction:1|nc
+67|1|Completely Randomized Desgin|1|construction:1; test:1; inspection:1|nc
+68|1|Paired Comparison Design|0|maintenance:2|short:4-hours
+69|1|Paired Comparison Design|1|construction:1; inspection:1; test:1|nc
+70|1|Paired Comparison Design|1|construction:1; inspection:1; test:1|nc
+71|1|Completely Randomized Desgin|0|maintenance:9|nc
+72|1|Completely Randomized Desgin|0|maintenance:7|nc
+73|1|Completely Randomized Desgin|0|maintenance:7|nc
+74|1|Completely Randomized Desgin|0|maintenance:7|nc
+75|1|Completely Randomized Desgin|0|maintenance:1|nc
+76|1|Completely Randomized Desgin|0|maintenance:2|nc
+77|1|Completely Randomized Desgin|0|maintenance:2|nc
+78|1|Completely Randomized Desgin|0|maintenance:1|nc
+79|1|Completely Randomized Desgin|0|maintenance:4|short:4-hours
