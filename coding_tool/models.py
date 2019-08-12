@@ -74,6 +74,7 @@ class Experiment(db.Model):
     samples = db.relationship("Sampling", backref="exp", lazy=True)
     design = db.relationship("ExperimentDesign", uselist=False,
                              back_populates="experiment")
+    lab_settings = db.Column(db.Integer)
     # design_id = db.Column(db.Integer, db.ForeignKey(
     #     'experiment_design.design_id'), nullable=True)
 
@@ -133,8 +134,11 @@ class ExperimentDesign(db.Model):
     factor_quantity = db.Column(db.Integer, nullable=False)
     design = db.Column(db.String(20), nullable=False)
     is_explicity_design = db.Column(db.Integer, nullable=False)
-    info = db.Column(db.String(100), nullable=True)
     tasks = db.relationship('Task', secondary=association_task)
+    duration = db.relationship("Duration", uselist=False,
+                               back_populates="parent")
+    measurements = db.relationship("Measurement", uselist=False,
+                                   back_populates="parent")
 
 
 class Task(db.Model):
@@ -142,3 +146,47 @@ class Task(db.Model):
     task_id = db.Column(db.Integer, primary_key=True)
     task_type = db.Column(db.String(20), nullable=False)
     quantity = db.Column(db.Integer, nullable=True)
+
+
+class Duration(db.Model):
+    __tablename__ = 'durantion'
+    durantion_id = db.Column(db.Integer, primary_key=True)
+    durantion_type = db.Column(db.String(4))
+    amount = db.Column(db.FLOAT)
+    metric = db.Column(db.String(8))
+    parent_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'))
+    parent = db.relationship("ExperimentDesign", back_populates="duration")
+
+    def classification(self):
+        if self.metric.startswith('min'):
+            return '>1h'
+        elif self.metric.startswith('hour'):
+            if self.amount < 1:
+                return '>1h'
+            elif 1 <= self.amount < 2:
+                return '1h-2h'
+            elif 2 <= self.amount < 3:
+                return '2h-3h'
+            elif 3 <= self.amount < 4:
+                return '3h-4h'
+            else:
+                return '>4h'
+        else:
+            if self.metric.startswith('weeks'):
+                return 'less than a mounth'
+            elif self.amount <= 2:
+                return 'one to two mounths'
+            else:
+                print(f'metric={self.metric}')
+                return 'three or more mounths'
+
+
+class Measurement(db.Model):
+    __tablename__ = 'measurement'
+    measurement_id = db.Column(db.Integer, primary_key=True)
+    measurement_type = db.Column(db.String(20), nullable=False)
+    measurement_instruments = db.Column(db.String(100), nullable=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'))
+    parent = db.relationship("ExperimentDesign", back_populates="measurements")

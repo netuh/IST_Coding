@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment
+from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration
 from coding_tool import db
 import pandas as pd
 import os
@@ -34,7 +34,8 @@ def seed_experiments():
     for index, row in df.iterrows():
         exp_id = int(row['exp_id'])
         pub_id = int(row['pub_id'])
-        e = Experiment(exp_id=exp_id)
+        lab_settings = int(row['lab_settings'])
+        e = Experiment(exp_id=exp_id, lab_settings=lab_settings)
         db.session.add(e)
         db.session.commit()
         p = Publication.query.filter_by(pub_id=pub_id).first()
@@ -122,9 +123,21 @@ def seed_design():
                              is_explicity_design=explicity_design)
         p = Experiment.query.get(int(exp_id))
         p.design = s
+
+        for profile in tasks.split(';'):
+            p = profile.split(':')
+            a = Task(task_type=p[0], quantity=int(p[1]))
+            s.tasks.append(a)
+            db.session.add(a)
+        if trial_duration != 'nc':
+            data = trial_duration.split(':')
+            amount = data[1].split('-')
+            d = Duration(durantion_type=data[0], amount=float(
+                amount[0]), metric=amount[1])
+            s.duration = d
+            db.session.add(d)
         db.session.add(s)
         db.session.commit()
-        # paper_id|factor_quantity|design|explicity_design|tasks|trial_duration
 
 
 @app.before_first_request
