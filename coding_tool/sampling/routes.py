@@ -54,7 +54,8 @@ def sampling_characteristics():
         this_choices.append((a_key, a_key))
     form.selectedCharac.choices = this_choices
 
-    bar = create_plot_bar(c.most_common())
+    # bar = create_plot_bar(c.most_common())
+    bar = create_plot_bar(c)
 
     if form.validate_on_submit():
         return redirect(url_for('sampling.details_charac', charac_name='test'))

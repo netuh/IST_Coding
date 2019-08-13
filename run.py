@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration
+from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement
 from coding_tool import db
 import pandas as pd
 import os
@@ -35,12 +35,13 @@ def seed_experiments():
         exp_id = int(row['exp_id'])
         pub_id = int(row['pub_id'])
         lab_settings = int(row['lab_settings'])
-        e = Experiment(exp_id=exp_id, lab_settings=lab_settings)
+        p = Publication.query.get(exp_id)
+        e = Experiment(exp_id=exp_id, lab_settings=lab_settings, pub=p)
         db.session.add(e)
         db.session.commit()
-        p = Publication.query.filter_by(pub_id=pub_id).first()
-        p.experiments.append(e)
-    db.session.commit()
+        # p = Publication.query.filter_by(pub_id=pub_id).first()
+        # p.experiments.append(e)
+    # db.session.commit()
 
 
 def seed_guidelines():
@@ -140,6 +141,24 @@ def seed_design():
         db.session.commit()
 
 
+def seed_measuriments():
+    file_name = os.path.join(
+        static_file_dir, 'coding_tool', 'static', 'csv', 'measurements.csv')
+    # Read CSV with Pandas
+    with open(file_name, 'r') as file:
+        df = pd.read_csv(file, sep='|')
+    for index, row in df.iterrows():
+        exp_id = int(row['exp_id'])
+        m_type = row['type']
+        m_instrument = row['instrument']
+        m = Measurement(measurement_instruments=m_instrument,
+                        measurement_type=m_type)
+        p = Experiment.query.get(int(exp_id))
+        db.session.add(m)
+        p.measurements = m
+    db.session.commit()
+
+
 @app.before_first_request
 def before_first_request_func():
     seed_publication()
@@ -147,6 +166,7 @@ def before_first_request_func():
     seed_experiments()
     seed_sampling()
     seed_design()
+    seed_measuriments()
 
 
 if __name__ == '__main__':

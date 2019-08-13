@@ -16,12 +16,14 @@ def create_app(config_class=Config):
     from coding_tool.sampling.routes import sampling
     from coding_tool.design.routes import exp_design
     from coding_tool.main.routes import main
+    from coding_tool.measurements.routes import measurements
     from coding_tool.errors.handlers import errors
     app.register_blueprint(metadata)
     app.register_blueprint(guideline)
     app.register_blueprint(sampling)
     app.register_blueprint(exp_design)
     app.register_blueprint(main)
+    app.register_blueprint(measurements)
     app.register_blueprint(errors)
 
     with app.app_context():

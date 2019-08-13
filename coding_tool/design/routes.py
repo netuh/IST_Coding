@@ -13,9 +13,11 @@ def design():
     word_list = []
     c = Counter()
     c2 = Counter()
+    print("inicio")
     for a_desing in desings:
         word_list.append(a_desing.design.strip().lower())
         c2.update([a_desing.factor_quantity])
+    print("fim")
     c.update(word_list)
     pie = create_plot_pie(c)
     bar = create_plot_bar(c2)

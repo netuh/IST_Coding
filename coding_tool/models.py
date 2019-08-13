@@ -2,13 +2,6 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from coding_tool import db
 
-association_experiment = db.Table('association_experiment', db.metadata,
-                                  db.Column('pub_id', db.Integer,
-                                            db.ForeignKey('publication.pub_id')),
-                                  db.Column('exp_id', db.Integer,
-                                            db.ForeignKey('experiment.exp_id')),
-                                  )
-
 association_guideline = db.Table('association_guideline', db.metadata,
                                  db.Column('pub_id', db.Integer,
                                            db.ForeignKey('publication.pub_id')),
@@ -70,11 +63,11 @@ class Guideline(db.Model):
 class Experiment(db.Model):
     __tablename__ = 'experiment'
     exp_id = db.Column(db.Integer, primary_key=True)
+    lab_settings = db.Column(db.Integer)
     pub_id = db.Column(db.Integer, db.ForeignKey('publication.pub_id'))
     samples = db.relationship("Sampling", backref="exp", lazy=True)
     design = db.relationship("ExperimentDesign", uselist=False,
                              back_populates="experiment")
-    lab_settings = db.Column(db.Integer)
     # design_id = db.Column(db.Integer, db.ForeignKey(
     #     'experiment_design.design_id'), nullable=True)
 

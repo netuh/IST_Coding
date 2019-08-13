@@ -24,7 +24,7 @@ exp_id|type|instrument
 10|objective|nc
 10|objective|nc
 10|objective|nc
-11||objective|nc
+11|objective|nc
 11|objective|nc
 11|objective|nc
 11|subjective|form
@@ -124,10 +124,10 @@ exp_id|type|instrument
 35|time|tool
 35|subjective|form
 36|time|tool
-36|subjective|form:tool
-36|subjective|form:tool
-36|subjective|form:tool
-36|subjective|form:tool
+36|subjective|form;tool
+36|subjective|form;tool
+36|subjective|form;tool
+36|subjective|form;tool
 37|objective|nc
 37|objective|nc
 38|time|experimenter
