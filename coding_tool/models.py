@@ -142,37 +142,47 @@ class Task(db.Model):
     quantity = db.Column(db.Integer, nullable=True)
 
 
+class DurationType(Enum):
+    SHORT = 'Short'
+    LONG = 'Long'
+
+
 class Duration(db.Model):
     __tablename__ = 'durantion'
     durantion_id = db.Column(db.Integer, primary_key=True)
-    durantion_type = db.Column(db.String(4))
+    durantion_type = db.Column(db.Enum(DurationType))
+    # If it is short: this amount is in minutes
+    # If it is long: this amount is in months
     amount = db.Column(db.FLOAT)
-    metric = db.Column(db.String(8))
     parent_id = db.Column(db.Integer, db.ForeignKey(
         'experiment_design.design_id'))
     parent = db.relationship("ExperimentDesign", back_populates="duration")
 
+    def set_amount(self, data, metric):
+        self.amount = data
+        if metric == 'min' or metric == 'mins':
+            self.amount = data / 60
+        if metric == 'weeks' or metric == 'week':
+            self.amount = data / 4
+
     def classification(self):
-        if self.metric.startswith('min'):
-            return '>1h'
-        elif self.metric.startswith('hour'):
+        if self.durantion_type == DurationType.SHORT:
             if self.amount < 1:
                 return '>1h'
-            elif 1 <= self.amount < 2:
+            elif self.amount < 2:
                 return '1h-2h'
-            elif 2 <= self.amount < 3:
+            elif self.amount < 3:
                 return '2h-3h'
-            elif 3 <= self.amount < 4:
+            elif self.amount < 4:
                 return '3h-4h'
             else:
                 return '>4h'
         else:
-            if self.metric.startswith('weeks'):
+            if self.amount < 1:
                 return 'less than a mounth'
             elif self.amount <= 2:
                 return 'one to two mounths'
             else:
-                print(f'metric={self.metric}')
                 return 'three or more mounths'
 
 

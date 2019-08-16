@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement, NatureOfDataSource
+from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement, NatureOfDataSource, DurationType
 from coding_tool import db
 import pandas as pd
 import os
@@ -127,8 +127,8 @@ def seed_design():
         if trial_duration != 'nc':
             data = trial_duration.split(':')
             amount = data[1].split('-')
-            d = Duration(durantion_type=data[0], amount=float(
-                amount[0]), metric=amount[1])
+            d = Duration(durantion_type=DurationType(data[0]))
+            d.set_amount(metric=amount[1], data=float(amount[0]))
             s.duration = d
             db.session.add(d)
         db.session.add(s)

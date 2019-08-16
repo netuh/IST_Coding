@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from coding_tool.models import ExperimentDesign, Task, Duration
+from coding_tool.models import ExperimentDesign, Task, Duration, DurationType
 from coding_tool.util import create_plot_pie, create_plot_bar
 
 from collections import Counter
@@ -40,16 +40,16 @@ def tasks():
 
 @exp_design.route("/design/task_duration")
 def duration():
-    short_duration = Duration.query.filter_by(durantion_type='short')
-    long_duration = Duration.query.filter_by(durantion_type='long')
+    short_duration = Duration.query.filter_by(
+        durantion_type=DurationType.SHORT)
+    long_duration = Duration.query.filter_by(
+        durantion_type=DurationType.LONG)
     count_short = Counter()
     for d in short_duration:
         count_short.update([d.classification()])
     count_long = Counter()
     for d in long_duration:
         count_long.update([d.classification()])
-    print(count_short)
-    print(count_long)
     plot_short = create_plot_pie(count_short)
     plot_long = create_plot_pie(count_long)
     return render_template('duration.html', plot_1=plot_short, plot_2=plot_long)
