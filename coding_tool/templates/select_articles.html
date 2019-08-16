@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Venues</h2>
+    <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Select Article</legend>
+            </fieldset>
+            <div class="form-group">
+                {{ form.designs(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.list_all(class="btn btn-outline-info") }}
+            </div>
+    </form>
+{% endblock content %}

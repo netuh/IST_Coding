@@ -3,11 +3,12 @@
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ guideline.authors }}</a>
-        <small class="text-muted">{{ guideline.year }}</small>
+        <a href="https://scholar.google.com.br/citations?view_op=search_authors&mauthors=C+Wohlin" class="mr-2" >Authors: {{ paper.bib['author'] }}</a>
+        <small class="text-muted">{{ paper.bib['year'] }}</small>
       </div>
-      <h2 class="article-title">{{ guideline.title }}</h2>
-      <a class="mr-2" href="{{guideline.address}}">{{ guideline.address }}</a>
+      <h2 class="article-title">{{ paper.bib['title'] }}</h2>
+      <p class="article-content">Abstract: {{ paper.bib['abstract'] }}</p>
+      <a class="mr-2" href="{{ paper.bib['url'] }}">access print</a>
     </div>
   </article>
 {% endblock content %}

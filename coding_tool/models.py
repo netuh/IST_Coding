@@ -1,3 +1,4 @@
+from enum import Enum
 from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from coding_tool import db
@@ -183,3 +184,10 @@ class Measurement(db.Model):
     parent_id = db.Column(db.Integer, db.ForeignKey(
         'experiment_design.design_id'))
     parent = db.relationship("ExperimentDesign", back_populates="measurements")
+
+
+class AnimalEnum(Enum):
+    HORSE = 1
+    COW = 2
+    CHICKEN = 3
+    DOG = 4
