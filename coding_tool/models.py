@@ -176,18 +176,17 @@ class Duration(db.Model):
                 return 'three or more mounths'
 
 
+class NatureOfDataSource(Enum):
+    TIME = 'Time'
+    SOURCE_CODE = 'Source Code'
+    SUBJECTIVE = 'Subjective'
+
+
 class Measurement(db.Model):
     __tablename__ = 'measurement'
     measurement_id = db.Column(db.Integer, primary_key=True)
-    measurement_type = db.Column(db.String(20), nullable=False)
-    measurement_instruments = db.Column(db.String(100), nullable=True)
+    measurement_type = db.Column(db.Enum(NatureOfDataSource), nullable=False)
+    measurement_instruments = db.Column(db.String(100))
     parent_id = db.Column(db.Integer, db.ForeignKey(
         'experiment_design.design_id'))
     parent = db.relationship("ExperimentDesign", back_populates="measurements")
-
-
-class AnimalEnum(Enum):
-    HORSE = 1
-    COW = 2
-    CHICKEN = 3
-    DOG = 4

@@ -3,5 +3,5 @@
 
 #all virtual environment
 venv/
-coding_too/site.db
-**/logs/__pycache__
+coding_tool/site.db
+**/__pycache__

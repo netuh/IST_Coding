@@ -43,10 +43,8 @@ def create_plot_violin(dic_data):
 def create_plot_bar(c):
     x = []
     y = []
-    for element in c.items():
-        print(f'p={element}')
-        print(f'p1={element[0]}')
-        print(f'p2={element[1]}')
+    # for element in c.items():
+    for element in c.most_common():
         x.append(element[0])
         y.append(element[1])
     df = pd.DataFrame({'x': x, 'y': y})  # creating a sample dataframe

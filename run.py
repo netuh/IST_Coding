@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement
+from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement, NatureOfDataSource
 from coding_tool import db
 import pandas as pd
 import os
@@ -38,10 +38,7 @@ def seed_experiments():
         p = Publication.query.get(exp_id)
         e = Experiment(exp_id=exp_id, lab_settings=lab_settings, pub=p)
         db.session.add(e)
-        db.session.commit()
-        # p = Publication.query.filter_by(pub_id=pub_id).first()
-        # p.experiments.append(e)
-    # db.session.commit()
+    db.session.commit()
 
 
 def seed_guidelines():
@@ -84,8 +81,6 @@ def seed_sampling():
         recruiting_strategy = row['recruiting_strategy']
         power_analysis = row['power_analysis']
         p = Experiment.query.get(int(sample_id))
-        # p = Experiment.query.filter_by(exp_id=sample_id).first()
-        print(f'experiment = {p}')
         s = Sampling(sample_id=sample_id, recruiting_strategy=recruiting_strategy,
                      power_analysis=power_analysis)
         s.exp_id = int(sample_id)
@@ -96,7 +91,6 @@ def seed_sampling():
 
         if isinstance(sample_characteristics, str):
             for charac in sample_characteristics.lower().split(';'):
-                print(f'charac={charac.replace(" ", "")}')
                 p = charac.replace(" ", "").split(':')
                 if len(p) > 1:
                     a = SamplingCharacteristic(charac=p[0], info=p[1])
@@ -152,8 +146,8 @@ def seed_measuriments():
         m_type = row['type']
         m_instrument = row['instrument']
         m = Measurement(measurement_instruments=m_instrument,
-                        measurement_type=m_type)
-        p = Experiment.query.get(int(exp_id))
+                        measurement_type=NatureOfDataSource(m_type))
+        p = Experiment.query.get(exp_id)
         db.session.add(m)
         p.measurements = m
     db.session.commit()
