@@ -1,5 +1,5 @@
 from coding_tool import create_app
-from coding_tool.models import Publication, Guideline, Sampling, SamplingProfile, SamplingCharacteristic, ExperimentDesign, Task, Experiment, Duration, Measurement, NatureOfDataSource, DurationType
+from coding_tool.models import *
 from coding_tool import db
 import pandas as pd
 import os
@@ -85,10 +85,12 @@ def seed_sampling():
                      power_analysis=power_analysis)
         s.exp_id = int(sample_id)
         for profile in sample_profile.split(';'):
-            p = profile.split(':')
-            a = SamplingProfile(profile=p[0], quantity=int(p[1]))
+            p = profile.replace(" ", "").split(':')
+            print(
+                f'profile={ProfileType(p[0].capitalize())} and quantity={p[1]}')
+            a = SamplingProfile(profile=ProfileType(
+                p[0].capitalize()), quantity=int(p[1]))
             s.profiles.append(a)
-
         if isinstance(sample_characteristics, str):
             for charac in sample_characteristics.lower().split(';'):
                 p = charac.replace(" ", "").split(':')
@@ -114,17 +116,17 @@ def seed_design():
         explicity_design = row['explicity_design']
         tasks = row['tasks']
         trial_duration = row['trial_duration']
-        s = ExperimentDesign(factor_quantity=factor_quantity, design=design,
+        s = ExperimentDesign(factor_quantity=factor_quantity, design=DesignType(design),
                              is_explicity_design=explicity_design)
         p = Experiment.query.get(int(exp_id))
         p.design = s
 
         for profile in tasks.split(';'):
-            p = profile.split(':')
-            a = Task(task_type=p[0], quantity=int(p[1]))
+            p = profile.replace(" ", "").split(':')
+            a = Task(task_type=TaskType(p[0].capitalize()), quantity=int(p[1]))
             s.tasks.append(a)
             db.session.add(a)
-        if trial_duration != 'nc':
+        if isinstance(trial_duration, str):
             data = trial_duration.split(':')
             amount = data[1].split('-')
             d = Duration(durantion_type=DurationType(data[0]))

@@ -13,11 +13,9 @@ def design():
     word_list = []
     c = Counter()
     c2 = Counter()
-    print("inicio")
     for a_desing in desings:
-        word_list.append(a_desing.design.strip().lower())
+        word_list.append(a_desing.design.value)
         c2.update([a_desing.factor_quantity])
-    print("fim")
     c.update(word_list)
     pie = create_plot_pie(c)
     bar = create_plot_bar(c2)
@@ -31,8 +29,8 @@ def tasks():
     count_task_by_quantity = Counter()
     for a_task in tasks:
         count_task_by_quantity.update(
-            {a_task.task_type.strip().lower(): a_task.quantity})
-        count_task_by_type.update([a_task.task_type.strip().lower()])
+            {a_task.task_type.value: a_task.quantity})
+        count_task_by_type.update([a_task.task_type.value])
     plot_by_type = create_plot_bar(count_task_by_type)
     plot_by_quantity = create_plot_bar(count_task_by_quantity)
     return render_template('tasks.html', plot_1=plot_by_type, plot_2=plot_by_quantity)

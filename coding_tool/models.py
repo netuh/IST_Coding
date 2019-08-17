@@ -73,6 +73,13 @@ class Experiment(db.Model):
     #     'experiment_design.design_id'), nullable=True)
 
 
+class ProfileType(Enum):
+    PROFESSIONAL = 'Professional'
+    GRADSTUDENT = 'Gradstudent'
+    UNDERGRADSTUDENT = 'Undergradstudent'
+    STUDENT = 'Student'
+
+
 class Sampling(db.Model):
     __tablename__ = 'sampling'
     sample_id = db.Column(db.Integer, primary_key=True)
@@ -93,7 +100,7 @@ class Sampling(db.Model):
         total = 0
         classification = 0
         for a_profile in self.profiles:
-            if (a_profile.profile == 'professional'):
+            if (a_profile.profile == ProfileType.PROFESSIONAL):
                 has_professional = True
             else:
                 has_student = True
@@ -109,7 +116,7 @@ class Sampling(db.Model):
 class SamplingProfile(db.Model):
     __tablename__ = 'sampling_profile'
     profile_id = db.Column(db.Integer, primary_key=True)
-    profile = db.Column(db.String(20), nullable=False)
+    profile = db.Column(db.Enum(ProfileType), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
 
@@ -120,13 +127,23 @@ class SamplingCharacteristic(db.Model):
     info = db.Column(db.String(100), nullable=True)
 
 
+class DesignType(Enum):
+    CRD = 'Completely Randomized Desgin'
+    PCD = 'Paired Comparison Design'
+    TMMAD = 'Two-way Mixed Model ANOVA Design'
+    RCBD = 'Randomized Complete Block Design'
+    FD = 'Factorial Design'
+    IWD = 'Incomplete Within-subjects Design'
+
+
 class ExperimentDesign(db.Model):
     __tablename__ = 'experiment_design'
     design_id = db.Column(db.Integer, primary_key=True)
     experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
     experiment = db.relationship("Experiment", back_populates="design")
     factor_quantity = db.Column(db.Integer, nullable=False)
-    design = db.Column(db.String(20), nullable=False)
+    # design = db.Column(db.String(20), nullable=False)
+    design = db.Column(db.Enum(DesignType), nullable=False)
     is_explicity_design = db.Column(db.Integer, nullable=False)
     tasks = db.relationship('Task', secondary=association_task)
     duration = db.relationship("Duration", uselist=False,
@@ -135,10 +152,21 @@ class ExperimentDesign(db.Model):
                                    back_populates="parent")
 
 
+class TaskType(Enum):
+    MAINTENANCE = 'Maintenance'
+    CONSTRUCTION = 'Construction'
+    TEST = 'Test'
+    INSPECTION = 'Inspection'
+    COMPREENSION = 'Compreension'
+    DESIGN = 'Design'
+    DEBUGGING = 'Debuging'
+
+
 class Task(db.Model):
     __tablename__ = 'task'
     task_id = db.Column(db.Integer, primary_key=True)
-    task_type = db.Column(db.String(20), nullable=False)
+    #task_type = db.Column(db.String(20), nullable=False)
+    task_type = db.Column(db.Enum(TaskType), nullable=False)
     quantity = db.Column(db.Integer, nullable=True)
 
 
