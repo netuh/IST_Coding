@@ -81,13 +81,18 @@ def seed_sampling():
         recruiting_strategy = row['recruiting_strategy']
         power_analysis = row['power_analysis']
         p = Experiment.query.get(int(sample_id))
-        s = Sampling(sample_id=sample_id, recruiting_strategy=recruiting_strategy,
+        s = Sampling(sample_id=sample_id,
                      power_analysis=power_analysis)
         s.exp_id = int(sample_id)
+        if isinstance(recruiting_strategy, str):
+            for strategy in recruiting_strategy.split(';'):
+                print(f'strategy ={strategy.capitalize()}')
+                print(f'strategy Enum ={RecrutingType(strategy.capitalize())}')
+                r = Recruting(recruiting_strategy=RecrutingType(
+                    strategy.capitalize()))
+                r.parent = s
         for profile in sample_profile.split(';'):
             p = profile.replace(" ", "").split(':')
-            print(
-                f'profile={ProfileType(p[0].capitalize())} and quantity={p[1]}')
             a = SamplingProfile(profile=ProfileType(
                 p[0].capitalize()), quantity=int(p[1]))
             s.profiles.append(a)

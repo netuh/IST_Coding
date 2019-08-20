@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect
 from collections import Counter
 
-from coding_tool.models import Publication, Sampling, SamplingProfile
+from coding_tool.models import Publication, Sampling, SamplingProfile, Recruting
 from coding_tool.util import create_plot_pie, create_plot_violin, create_plot_bar
 from coding_tool.sampling.forms import SelectingCharacteristicForm
 
@@ -22,6 +22,17 @@ def sampling_distribution():
     c.update(word_list)
     pie = create_plot_pie(c)
     return render_template('distribution.html', plot=pie)
+
+
+@sampling.route("/sampling/recruting")
+def sampling_recruting():
+    profiles = Recruting.query.all()
+    word_list = []
+    c = Counter()
+    for strategy in profiles:
+        c.update([strategy.recruiting_strategy.value])
+    pie = create_plot_pie(c)
+    return render_template('recruiting_strategy.html', plot=pie)
 
 
 @sampling.route("/sampling/by_classification")

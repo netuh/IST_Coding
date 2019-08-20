@@ -1,5 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
+<script>
+function outputUpdate(age) {
+    document.querySelector('#selected-age').value = age;
+}
+
+function outputUpdateMax(age) {
+    document.querySelector('#selected-age-max').value = age;
+}
+</script>
     <h2>Venues</h2>
     <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -7,7 +16,39 @@
                 <legend class="border-bottom mb-4">Select Article</legend>
             </fieldset>
             <div class="form-group">
+                {{ form.sample_size_min(oninput="outputUpdate(value)", class="form-control form-control-lg") }}
+                <output class="form-control form-control-lg" for="age" id="selected-age">{{ form.sample_size_min.data }}</output>
+            </div>
+            <div class="form-group">
+                {{ form.sample_size_max(oninput="outputUpdateMax(value)", class="form-control form-control-lg") }}
+                <output class="form-control form-control-lg" for="age" id="selected-age-max">{{ form.sample_size_max.data }}</output>
+            </div>
+            <div class="form-group">
+                {{ form.profile_type(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-check">
+              {{ form.lab_settings(class="form-check-input", type="checkbox", id="defaultCheck1") }}
+              <label class="form-check-label form-control-sm" for="defaultCheck1">
+                {{ form.lab_settings.label }}
+              </label>
+            </div>
+            <div class="form-group">
+
+            </div>
+            <div class="form-group">
+                {{ form.guidelines(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
                 {{ form.designs(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.performed_tasks(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.duration(class="form-control form-control-lg") }}
+            </div>
+            <div class="form-group">
+                {{ form.nature_of_data(class="checkbox-inline form-control form-control-lg") }}
             </div>
             <div class="form-group">
                 {{ form.list_all(class="btn btn-outline-info") }}

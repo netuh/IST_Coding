@@ -80,11 +80,31 @@ class ProfileType(Enum):
     STUDENT = 'Student'
 
 
+class RecrutingType(Enum):
+    COURSE = 'Course'
+    PAID = 'Paid'
+    NO_REWARD = 'No reward'
+    WORK = 'Work'
+    VOLUNTEER = 'Volunteer'
+    COMPETITION = 'Competition'
+
+
+class Recruting(db.Model):
+    __tablename__ = 'recruting'
+    recruting_id = db.Column(db.Integer, primary_key=True)
+    recruiting_strategy = db.Column(db.Enum(RecrutingType), nullable=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey(
+        'sampling.sample_id'))
+    parent = db.relationship(
+        "Sampling", back_populates="recruiting_strategies")
+
+
 class Sampling(db.Model):
     __tablename__ = 'sampling'
     sample_id = db.Column(db.Integer, primary_key=True)
     exp_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
-    recruiting_strategy = db.Column(db.String(200))
+    recruiting_strategies = db.relationship("Recruting", uselist=False,
+                                            back_populates="parent")
     power_analysis = db.Column(db.Integer, default=0)
     profiles = db.relationship(
         'SamplingProfile', secondary=association_profile)
