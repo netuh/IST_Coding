@@ -1,25 +1,35 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, request
 from collections import Counter
 
+import json
 
 from coding_tool.util import create_plot_pie, create_plot_violin, create_plot_bar
 from coding_tool.article.forms import SelectArticleForm
 from coding_tool.models import *
+from coding_tool import db
 
 import numpy as np
 
 articles = Blueprint('articles', __name__)
 
 
-@articles.route("/article/select", methods=['GET', 'POST'])
+@articles.route("/articles/select", methods=['GET', 'POST'])
 def select_articles():
     form = SelectArticleForm()
+    qry = db.session.query(db.func.max(SamplingProfile.quantity).label("max_score"),
+                           db.func.min(SamplingProfile.quantity).label(
+                               "min_score"),
+                           )
+    res = qry.one()
+    form.max_value = res.max_score
+    form.min_value = res.min_score
+
     guielines_list = []
     guidelines = Guideline.query.with_entities(Guideline.title).all()
     for a_guideline in guidelines:
         guielines_list.append((a_guideline.title, a_guideline.title))
     form.guidelines.choices = guielines_list
-    design_list = []
+    design_list = [('-None-', '-None-')]
     for name, member in DesignType.__members__.items():
         design_list.append((member.value, member.value))
     form.designs.choices = design_list
@@ -32,7 +42,7 @@ def select_articles():
         nature_of_data_list.append((member.value, member.value))
     form.nature_of_data.choices = nature_of_data_list
     DurationType
-    duration_list = []
+    duration_list = [('-None-', '-None-')]
     for name, member in DurationType.__members__.items():
         duration_list.append((member.value, member.value))
     form.duration.choices = duration_list
@@ -40,11 +50,56 @@ def select_articles():
     for name, member in ProfileType.__members__.items():
         profile_list.append((member.value, member.value))
     form.profile_type.choices = profile_list
+
+    recruitment_list = []
+    for name, member in RecrutingType.__members__.items():
+        recruitment_list.append((member.value, member.value))
+    form.recruting_type.choices = recruitment_list
     if form.validate_on_submit():
-        return redirect(url_for('sampling.detail_article', charac_name='test'))
+        data = {}
+        data['min'] = form.sample_size_min.data
+        data['max'] = form.sample_size_max.data
+        if form.guidelines.data:
+            data['guideines'] = form.guidelines.data
+        if form.nature_of_data.data:
+            data['nature_of_data'] = form.nature_of_data.data
+        if form.performed_tasks.data:
+            data['performed_tasks'] = form.performed_tasks.data
+        if form.profile_type.data:
+            data['profile_type'] = form.profile_type.data
+
+        if form.designs.data != '-None-':
+            data['design'] = form.designs.data
+        if form.duration.data != '-None-':
+            data['duration'] = form.duration.data
+        messages = json.dumps(data)
+        return redirect(url_for('articles.list_articles', page=1, messages=messages))
     return render_template('select_articles.html', form=form)
 
 
-@articles.route("/article/<pub_id>", methods=['GET', 'POST'])
-def detail_article():
-    return render_template('detail_article.html')
+@articles.route("/articles/list", methods=['GET', 'POST'])
+def list_articles():
+    page = request.args.get('page', 1, type=int)
+    messages = request.args['messages']
+    p = json.loads(messages)
+
+    query_result = db.session.query(
+        Publication
+    ).join(
+        Experiment
+    ).join(
+        Sampling
+    )
+
+    if p['min']:
+        min_s = p['min']
+        query_result.filter(
+            Sampling.sample_total >= min_s
+        )
+    if p['max']:
+        max_s = p['max']
+        query_result.filter(
+            Sampling.sample_total <= max_s
+        )
+    articles = query_result.paginate(page=page, per_page=10)
+    return render_template('detail_article.html', posts=articles, messages=messages)

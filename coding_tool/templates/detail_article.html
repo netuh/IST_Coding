@@ -1,4 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>About Page</h1>
+    <h1 class="mb-3">Total articles  ({{ posts.total }})</h1>
+    {% for pub in posts.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ pub.authors }}</a><br>
+              <small class="text-muted">{{ pub.institution }}</small> <br>
+              <small class="text-muted">{{ pub.year }}</small>
+            </div>
+            <h2><a class="article-title" href="www.google.com">{{ pub.title }}</a></h2>
+            <p class="article-content"> {{ pub.venue }} {{ pub.year }}</p>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('articles.list_articles', page=page_num, messages=messages) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('articles.list_articles', page=page_num, messages=messages) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
 {% endblock content %}

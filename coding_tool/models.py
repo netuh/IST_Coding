@@ -106,6 +106,7 @@ class Sampling(db.Model):
     recruiting_strategies = db.relationship("Recruting", uselist=False,
                                             back_populates="parent")
     power_analysis = db.Column(db.Integer, default=0)
+    sample_total = db.Column(db.Integer, nullable=False)
     profiles = db.relationship(
         'SamplingProfile', secondary=association_profile)
     characteristics = db.relationship(

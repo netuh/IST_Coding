@@ -80,14 +80,13 @@ def seed_sampling():
         sample_characteristics = row['sample_characteristics']
         recruiting_strategy = row['recruiting_strategy']
         power_analysis = row['power_analysis']
+        total = 0
         p = Experiment.query.get(int(sample_id))
-        s = Sampling(sample_id=sample_id,
+        s = Sampling(sample_id=sample_id, sample_total=total,
                      power_analysis=power_analysis)
         s.exp_id = int(sample_id)
         if isinstance(recruiting_strategy, str):
             for strategy in recruiting_strategy.split(';'):
-                print(f'strategy ={strategy.capitalize()}')
-                print(f'strategy Enum ={RecrutingType(strategy.capitalize())}')
                 r = Recruting(recruiting_strategy=RecrutingType(
                     strategy.capitalize()))
                 r.parent = s
@@ -95,6 +94,7 @@ def seed_sampling():
             p = profile.replace(" ", "").split(':')
             a = SamplingProfile(profile=ProfileType(
                 p[0].capitalize()), quantity=int(p[1]))
+            total += int(p[1])
             s.profiles.append(a)
         if isinstance(sample_characteristics, str):
             for charac in sample_characteristics.lower().split(';'):
@@ -104,6 +104,7 @@ def seed_sampling():
                 else:
                     a = SamplingCharacteristic(charac=p[0])
                 s.characteristics.append(a)
+        s.sample_total = total
         db.session.add(s)
         db.session.commit()
 
