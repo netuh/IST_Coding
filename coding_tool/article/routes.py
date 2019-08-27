@@ -56,6 +56,7 @@ def select_articles():
         recruitment_list.append((member.value, member.value))
     form.recruting_type.choices = recruitment_list
     if form.validate_on_submit():
+        print('here1')
         data = {}
         data['min'] = form.sample_size_min.data
         data['max'] = form.sample_size_max.data
@@ -73,7 +74,9 @@ def select_articles():
         if form.duration.data != '-None-':
             data['duration'] = form.duration.data
         messages = json.dumps(data)
+        print('here3')
         return redirect(url_for('articles.list_articles', page=1, messages=messages))
+    print('here4')
     return render_template('select_articles.html', form=form)
 
 
@@ -83,23 +86,52 @@ def list_articles():
     messages = request.args['messages']
     p = json.loads(messages)
 
+    min_s = int(p['min'])
+    max_s = int(p['max'])
     query_result = db.session.query(
         Publication
     ).join(
         Experiment
     ).join(
         Sampling
+    ).join(
+        ExperimentDesign
     )
 
-    if p['min']:
-        min_s = p['min']
-        query_result.filter(
+    # query_result = db.session.query(
+    #     Publication
+    # ).join(
+    #     Experiment
+    # ).join(
+    #     Sampling
+    # )
+    # if 'profile_type' in p:
+    #     print('here 1')
+    #     query_result.join(SamplingProfile)
+
+    if 'min' in p:
+        min_s = int(p['min'])
+        print(f'min={min_s}')
+        query_result = query_result.filter(
             Sampling.sample_total >= min_s
         )
-    if p['max']:
-        max_s = p['max']
-        query_result.filter(
+    if 'max' in p:
+        max_s = int(p['max'])
+        print(f'max={max_s}')
+        query_result = query_result.filter(
             Sampling.sample_total <= max_s
         )
+    if 'design' in p:
+        var = DesignType(p['design'])
+        print(f'design={var}')
+        query_result = query_result.filter(
+            ExperimentDesign.design == var
+        )
+    # if 'profile_type' in p:
+    #     for a_profile in p['profile_type']:
+    #         query_result = query_result.filter(
+    #             SamplingProfile.profile == ProfileType(a_profile)
+    #         )
+    print(f'count={query_result.count()}')
     articles = query_result.paginate(page=page, per_page=10)
     return render_template('detail_article.html', posts=articles, messages=messages)

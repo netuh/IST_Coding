@@ -10,12 +10,12 @@ association_guideline = db.Table('association_guideline', db.metadata,
                                            db.ForeignKey('guideline.guide_id')),
                                  )
 
-association_profile = db.Table('association_profile', db.metadata,
-                               db.Column('profile_id', db.Integer,
-                                         db.ForeignKey('sampling_profile.profile_id')),
-                               db.Column('sample_id', db.Integer,
-                                         db.ForeignKey('sampling.sample_id')),
-                               )
+# association_profile = db.Table('association_profile', db.metadata,
+#                                db.Column('profile_id', db.Integer,
+#                                          db.ForeignKey('sampling_profile.profile_id')),
+#                                db.Column('sample_id', db.Integer,
+#                                          db.ForeignKey('sampling.sample_id')),
+#                                )
 
 association_charac = db.Table('association_charac', db.metadata,
                               db.Column('charac_id', db.Integer,
@@ -107,8 +107,9 @@ class Sampling(db.Model):
                                             back_populates="parent")
     power_analysis = db.Column(db.Integer, default=0)
     sample_total = db.Column(db.Integer, nullable=False)
-    profiles = db.relationship(
-        'SamplingProfile', secondary=association_profile)
+    profiles = db.relationship("SamplingProfile", backref="parent_profile", lazy=True)
+    # profiles = db.relationship(
+    #     'SamplingProfile', secondary=association_profile)
     characteristics = db.relationship(
         'SamplingCharacteristic', secondary=association_charac)
 
@@ -136,7 +137,9 @@ class Sampling(db.Model):
 
 class SamplingProfile(db.Model):
     __tablename__ = 'sampling_profile'
-    profile_id = db.Column(db.Integer, primary_key=True)
+    sample_profile_id = db.Column(db.Integer, primary_key=True)
+    parent_profile_id = db.Column(
+        db.Integer, db.ForeignKey('sampling.sample_id'))
     profile = db.Column(db.Enum(ProfileType), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 

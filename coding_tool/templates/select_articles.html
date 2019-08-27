@@ -1,14 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-<script>
-function outputUpdate(age) {
-    document.querySelector('#selected-age').value = age;
-}
-
-function outputUpdateMax(age) {
-    document.querySelector('#selected-age-max').value = age;
-}
-</script>
     <h2>Venues</h2>
     <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -16,12 +7,10 @@ function outputUpdateMax(age) {
                 <legend class="border-bottom mb-4">Select Article</legend>
             </fieldset>
             <div class="form-group">
-                {{ form.sample_size_min(oninput="outputUpdate(value)", class="form-control form-control-lg") }}
-                <output class="form-control form-control-lg" for="age" id="selected-age">{{ form.sample_size_min.data }}</output>
+                {{ form.sample_size_min(class="form-control form-control-lg") }}
             </div>
             <div class="form-group">
-                {{ form.sample_size_max(oninput="outputUpdateMax(value)", class="form-control form-control-lg") }}
-                <output class="form-control form-control-lg" for="age" id="selected-age-max">{{ form.sample_size_max.data }}</output>
+                {{ form.sample_size_max(class="form-control form-control-lg") }}
             </div>
             <div class="form-group">
                 {{ form.profile_type(class="form-control form-control-lg") }}
