@@ -17,19 +17,19 @@ association_guideline = db.Table('association_guideline', db.metadata,
 #                                          db.ForeignKey('sampling.sample_id')),
 #                                )
 
-association_charac = db.Table('association_charac', db.metadata,
-                              db.Column('charac_id', db.Integer,
-                                        db.ForeignKey('sampling_charac.charac_id')),
-                              db.Column('sample_id', db.Integer,
-                                        db.ForeignKey('sampling.sample_id')),
-                              )
+# association_charac = db.Table('association_charac', db.metadata,
+#                               db.Column('charac_id', db.Integer,
+#                                         db.ForeignKey('sampling_charac.charac_id')),
+#                               db.Column('sample_id', db.Integer,
+#                                         db.ForeignKey('sampling.sample_id')),
+#                               )
 
-association_task = db.Table('association_task', db.metadata,
-                            db.Column('design_id', db.Integer,
-                                      db.ForeignKey('experiment_design.design_id')),
-                            db.Column('task_id', db.Integer,
-                                      db.ForeignKey('task.task_id')),
-                            )
+# association_task = db.Table('association_task', db.metadata,
+#                             db.Column('design_id', db.Integer,
+#                                       db.ForeignKey('experiment_design.design_id')),
+#                             db.Column('task_id', db.Integer,
+#                                       db.ForeignKey('task.task_id')),
+#                             )
 
 
 class Publication(db.Model):
@@ -41,7 +41,7 @@ class Publication(db.Model):
     authors = db.Column(db.String(200), nullable=False)
     institution = db.Column(db.String(200), nullable=False)
     keywords = db.Column(db.String(200), nullable=False)
-    experiments = db.relationship("Experiment", backref="pub", lazy='dynamic')
+    experiments = db.relationship("Experiment", backref="exp_pub", lazy=True)
 
     def __repr__(self):
         return f"Publication('{self.title}', '{self.year}')"
@@ -65,12 +65,11 @@ class Experiment(db.Model):
     __tablename__ = 'experiment'
     exp_id = db.Column(db.Integer, primary_key=True)
     lab_settings = db.Column(db.Integer)
-    pub_id = db.Column(db.Integer, db.ForeignKey('publication.pub_id'))
+    exp_pub_id = db.Column(db.Integer, db.ForeignKey(
+        'publication.pub_id'), nullable=False)
     samples = db.relationship("Sampling", backref="exp", lazy=True)
     design = db.relationship("ExperimentDesign", uselist=False,
                              back_populates="experiment")
-    # design_id = db.Column(db.Integer, db.ForeignKey(
-    #     'experiment_design.design_id'), nullable=True)
 
 
 class ProfileType(Enum):
@@ -93,8 +92,8 @@ class Recruting(db.Model):
     __tablename__ = 'recruting'
     recruting_id = db.Column(db.Integer, primary_key=True)
     recruiting_strategy = db.Column(db.Enum(RecrutingType), nullable=False)
-    parent_id = db.Column(db.Integer, db.ForeignKey(
-        'sampling.sample_id'))
+    parent_recru_id = db.Column(db.Integer, db.ForeignKey(
+        'sampling.sample_id'), nullable=False)
     parent = db.relationship(
         "Sampling", back_populates="recruiting_strategies")
 
@@ -102,16 +101,18 @@ class Recruting(db.Model):
 class Sampling(db.Model):
     __tablename__ = 'sampling'
     sample_id = db.Column(db.Integer, primary_key=True)
-    exp_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
-    recruiting_strategies = db.relationship("Recruting", uselist=False,
-                                            back_populates="parent")
+    exp_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment.exp_id'), nullable=False)
     power_analysis = db.Column(db.Integer, default=0)
     sample_total = db.Column(db.Integer, nullable=False)
-    profiles = db.relationship("SamplingProfile", backref="parent_profile", lazy=True)
-    # profiles = db.relationship(
-    #     'SamplingProfile', secondary=association_profile)
+    profiles = db.relationship(
+        "SamplingProfile", backref="parent_profile", lazy=True)
     characteristics = db.relationship(
-        'SamplingCharacteristic', secondary=association_charac)
+        "SamplingCharacteristic", backref="parent_charac", lazy=True)
+    recruiting_strategies = db.relationship("Recruting", uselist=False,
+                                            backref="parent_recru", lazy=True)
+    # characteristics = db.relationship(
+    #     'SamplingCharacteristic', secondary=association_charac)
 
     def __repr__(self):
         return f"Sampling('{self.recruitment_type}', '{self.sample_size}')"
@@ -139,7 +140,7 @@ class SamplingProfile(db.Model):
     __tablename__ = 'sampling_profile'
     sample_profile_id = db.Column(db.Integer, primary_key=True)
     parent_profile_id = db.Column(
-        db.Integer, db.ForeignKey('sampling.sample_id'))
+        db.Integer, db.ForeignKey('sampling.sample_id'), nullable=False)
     profile = db.Column(db.Enum(ProfileType), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
 
@@ -147,6 +148,8 @@ class SamplingProfile(db.Model):
 class SamplingCharacteristic(db.Model):
     __tablename__ = 'sampling_charac'
     charac_id = db.Column(db.Integer, primary_key=True)
+    parent_charac_id = db.Column(
+        db.Integer, db.ForeignKey('sampling.sample_id'), nullable=False)
     charac = db.Column(db.String(20), nullable=False)
     info = db.Column(db.String(100), nullable=True)
 
@@ -163,17 +166,16 @@ class DesignType(Enum):
 class ExperimentDesign(db.Model):
     __tablename__ = 'experiment_design'
     design_id = db.Column(db.Integer, primary_key=True)
-    experiment_id = db.Column(db.Integer, db.ForeignKey('experiment.exp_id'))
+    experiment_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment.exp_id'), nullable=False)
     experiment = db.relationship("Experiment", back_populates="design")
     factor_quantity = db.Column(db.Integer, nullable=False)
-    # design = db.Column(db.String(20), nullable=False)
     design = db.Column(db.Enum(DesignType), nullable=False)
     is_explicity_design = db.Column(db.Integer, nullable=False)
-    tasks = db.relationship('Task', secondary=association_task)
-    duration = db.relationship("Duration", uselist=False,
-                               back_populates="parent")
-    measurements = db.relationship("Measurement", uselist=False,
-                                   back_populates="parent")
+    tasks = db.relationship('Task', backref="task_parent", lazy=True)
+    duration = db.relationship("Duration", backref="dura_parent", lazy=True)
+    measurements = db.relationship(
+        'Measurement', backref='measu_parent', lazy=True)
 
 
 class TaskType(Enum):
@@ -189,7 +191,8 @@ class TaskType(Enum):
 class Task(db.Model):
     __tablename__ = 'task'
     task_id = db.Column(db.Integer, primary_key=True)
-    #task_type = db.Column(db.String(20), nullable=False)
+    task_parent_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'), nullable=False)
     task_type = db.Column(db.Enum(TaskType), nullable=False)
     quantity = db.Column(db.Integer, nullable=True)
 
@@ -202,13 +205,13 @@ class DurationType(Enum):
 class Duration(db.Model):
     __tablename__ = 'durantion'
     durantion_id = db.Column(db.Integer, primary_key=True)
-    durantion_type = db.Column(db.Enum(DurationType))
+    dura_parent_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'), nullable=False)
+
     # If it is short: this amount is in minutes
     # If it is long: this amount is in months
+    durantion_type = db.Column(db.Enum(DurationType))
     amount = db.Column(db.FLOAT)
-    parent_id = db.Column(db.Integer, db.ForeignKey(
-        'experiment_design.design_id'))
-    parent = db.relationship("ExperimentDesign", back_populates="duration")
 
     def set_amount(self, data, metric):
         self.amount = data
@@ -249,6 +252,5 @@ class Measurement(db.Model):
     measurement_id = db.Column(db.Integer, primary_key=True)
     measurement_type = db.Column(db.Enum(NatureOfDataSource), nullable=False)
     measurement_instruments = db.Column(db.String(100))
-    parent_id = db.Column(db.Integer, db.ForeignKey(
-        'experiment_design.design_id'))
-    parent = db.relationship("ExperimentDesign", back_populates="measurements")
+    measu_parent_id = db.Column(db.Integer, db.ForeignKey(
+        'experiment_design.design_id'), nullable=False)

@@ -56,7 +56,6 @@ def select_articles():
         recruitment_list.append((member.value, member.value))
     form.recruting_type.choices = recruitment_list
     if form.validate_on_submit():
-        print('here1')
         data = {}
         data['min'] = form.sample_size_min.data
         data['max'] = form.sample_size_max.data
@@ -74,9 +73,7 @@ def select_articles():
         if form.duration.data != '-None-':
             data['duration'] = form.duration.data
         messages = json.dumps(data)
-        print('here3')
         return redirect(url_for('articles.list_articles', page=1, messages=messages))
-    print('here4')
     return render_template('select_articles.html', form=form)
 
 
@@ -96,18 +93,21 @@ def list_articles():
         Sampling
     ).join(
         ExperimentDesign
+    ).join(
+        Measurement
     )
-
     # query_result = db.session.query(
     #     Publication
     # ).join(
     #     Experiment
     # ).join(
     #     Sampling
+    # ).join(
+    #     ExperimentDesign
     # )
-    # if 'profile_type' in p:
-    #     print('here 1')
-    #     query_result.join(SamplingProfile)
+    # .join(
+    #     Measurement, ExperimentDesign.design_id == Measurement.measu_parent_id
+    # )
 
     if 'min' in p:
         min_s = int(p['min'])
@@ -127,11 +127,15 @@ def list_articles():
         query_result = query_result.filter(
             ExperimentDesign.design == var
         )
-    # if 'profile_type' in p:
-    #     for a_profile in p['profile_type']:
-    #         query_result = query_result.filter(
-    #             SamplingProfile.profile == ProfileType(a_profile)
-    #         )
+    # if 'duration' in p:
+    #     var = DurationType(p['duration'])
+    #     print(f'design={var}')
+    #     query_result = query_result.filter(
+    #         Duration.durantion_type == var
+    #     )
+
     print(f'count={query_result.count()}')
-    articles = query_result.paginate(page=page, per_page=10)
-    return render_template('detail_article.html', posts=articles, messages=messages)
+    # articles = query_result.paginate(page=page, per_page=10)
+    articles = query_result.all()
+    print(len(articles))
+    return render_template('detail_article2.html', posts=articles, messages=messages)

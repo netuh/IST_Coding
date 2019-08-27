@@ -18,11 +18,25 @@ def seed_publication():
         df = pd.read_csv(file, sep='|')
 
     engine = db.get_engine()
-    df.to_sql('publication',
-              con=engine,
-              index=False,
-              index_label='id',
-              if_exists='replace')
+    for index, row in df.iterrows():
+        # pub_id|title|year|venue|authors|institution|keywords
+        pub_id = int(row['pub_id'])
+        title = row['title']
+        year = int(row['year'])
+        venue = row['venue']
+        authors = row['authors']
+        institution = row['institution']
+        keywords = row['keywords']
+        e = Publication(pub_id=pub_id, title=title, year=year,
+                        venue=venue, authors=authors, institution=institution,
+                        keywords=keywords)
+        db.session.add(e)
+    db.session.commit()
+    # df.to_sql('publication',
+    #           con=engine,
+    #           index=False,
+    #           index_label='id',
+    #           if_exists='replace')
 
 
 def seed_experiments():
@@ -35,8 +49,8 @@ def seed_experiments():
         exp_id = int(row['exp_id'])
         pub_id = int(row['pub_id'])
         lab_settings = int(row['lab_settings'])
-        p = Publication.query.get(exp_id)
-        e = Experiment(exp_id=exp_id, lab_settings=lab_settings, pub=p)
+        p = Publication.query.get(pub_id)
+        e = Experiment(exp_id=exp_id, lab_settings=lab_settings, exp_pub=p)
         db.session.add(e)
     db.session.commit()
 
@@ -88,22 +102,23 @@ def seed_sampling():
         if isinstance(recruiting_strategy, str):
             for strategy in recruiting_strategy.split(';'):
                 r = Recruting(recruiting_strategy=RecrutingType(
-                    strategy.capitalize()))
+                    strategy.capitalize()), parent_recru=s)
                 r.parent = s
         for profile in sample_profile.split(';'):
             p = profile.replace(" ", "").split(':')
             a = SamplingProfile(profile=ProfileType(
-                p[0].capitalize()), quantity=int(p[1]))
+                p[0].capitalize()), quantity=int(p[1]), parent_profile=s)
             total += int(p[1])
             s.profiles.append(a)
         if isinstance(sample_characteristics, str):
             for charac in sample_characteristics.lower().split(';'):
                 p = charac.replace(" ", "").split(':')
                 if len(p) > 1:
-                    a = SamplingCharacteristic(charac=p[0], info=p[1])
+                    a = SamplingCharacteristic(
+                        charac=p[0], info=p[1], parent_charac=s)
                 else:
-                    a = SamplingCharacteristic(charac=p[0])
-                s.characteristics.append(a)
+                    a = SamplingCharacteristic(charac=p[0], parent_charac=s)
+                # s.characteristics.append(a)
         s.sample_total = total
         db.session.add(s)
         db.session.commit()
@@ -129,15 +144,14 @@ def seed_design():
 
         for profile in tasks.split(';'):
             p = profile.replace(" ", "").split(':')
-            a = Task(task_type=TaskType(p[0].capitalize()), quantity=int(p[1]))
-            s.tasks.append(a)
+            a = Task(task_type=TaskType(
+                p[0].capitalize()), quantity=int(p[1]), task_parent=s)
             db.session.add(a)
         if isinstance(trial_duration, str):
             data = trial_duration.split(':')
             amount = data[1].split('-')
-            d = Duration(durantion_type=DurationType(data[0]))
+            d = Duration(durantion_type=DurationType(data[0]), dura_parent=s)
             d.set_amount(metric=amount[1], data=float(amount[0]))
-            s.duration = d
             db.session.add(d)
         db.session.add(s)
         db.session.commit()
@@ -153,18 +167,18 @@ def seed_measuriments():
         exp_id = int(row['exp_id'])
         m_type = row['type']
         m_instrument = row['instrument']
-        m = Measurement(measurement_instruments=m_instrument,
-                        measurement_type=NatureOfDataSource(m_type))
         p = Experiment.query.get(exp_id)
+        m = Measurement(measurement_instruments=m_instrument,
+                        measurement_type=NatureOfDataSource(m_type),
+                        measu_parent=p.design)
         db.session.add(m)
-        p.measurements = m
     db.session.commit()
 
 
 @app.before_first_request
 def before_first_request_func():
     seed_publication()
-    seed_guidelines()
+    # seed_guidelines()
     seed_experiments()
     seed_sampling()
     seed_design()
