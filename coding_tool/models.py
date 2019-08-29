@@ -42,6 +42,8 @@ class Publication(db.Model):
     institution = db.Column(db.String(200), nullable=False)
     keywords = db.Column(db.String(200), nullable=False)
     experiments = db.relationship("Experiment", backref="exp_pub", lazy=True)
+    guidelines = db.relationship(
+        "Guideline", backref="referenced_by", lazy=True)
 
     def __repr__(self):
         return f"Publication('{self.title}', '{self.year}')"
@@ -54,8 +56,11 @@ class Guideline(db.Model):
     year = db.Column(db.Integer, nullable=False)
     authors = db.Column(db.String(200), nullable=False)
     address = db.Column(db.String(200), nullable=False)
-    referenced_by = db.relationship('Publication', secondary=association_guideline,
-                                    backref=db.backref('guidelines', lazy='dynamic'))
+    referenced_by_id = db.Column(db.Integer, db.ForeignKey(
+        'publication.pub_id'), nullable=False)
+
+    # referenced_by = db.relationship('Publication', secondary=association_guideline,
+    #                                 backref=db.backref('guidelines', lazy='dynamic'))
 
     def __repr__(self):
         return f"Guideline('{self.title}', '{self.year}')"

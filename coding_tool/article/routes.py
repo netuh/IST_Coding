@@ -24,11 +24,6 @@ def select_articles():
     form.max_value = res.max_score
     form.min_value = res.min_score
 
-    guielines_list = []
-    guidelines = Guideline.query.with_entities(Guideline.title).all()
-    for a_guideline in guidelines:
-        guielines_list.append((a_guideline.title, a_guideline.title))
-    form.guidelines.choices = guielines_list
     design_list = [('-None-', '-None-')]
     for name, member in DesignType.__members__.items():
         design_list.append((member.value, member.value))
@@ -56,11 +51,14 @@ def select_articles():
         recruitment_list.append((member.value, member.value))
     form.recruting_type.choices = recruitment_list
     if form.validate_on_submit():
+        print(f'select={form.lab_settings.data}')
         data = {}
         data['min'] = form.sample_size_min.data
         data['max'] = form.sample_size_max.data
-        if form.guidelines.data:
-            data['guideines'] = form.guidelines.data
+        if form.lab_settings.data:
+            data['lab'] = True
+        if form.recruting_type.data:
+            data['recruting'] = form.recruting_type.data
         if form.nature_of_data.data:
             data['nature_of_data'] = form.nature_of_data.data
         if form.performed_tasks.data:
@@ -93,22 +91,23 @@ def list_articles():
         Sampling
     ).join(
         ExperimentDesign
-    ).join(
-        Measurement
     )
-    # query_result = db.session.query(
-    #     Publication
-    # ).join(
-    #     Experiment
-    # ).join(
-    #     Sampling
-    # ).join(
-    #     ExperimentDesign
-    # )
-    # .join(
-    #     Measurement, ExperimentDesign.design_id == Measurement.measu_parent_id
-    # )
 
+    if 'nature_of_data' in p:
+        query_result = query_result.join(Measurement)
+    if 'duration' in p:
+        query_result = query_result.join(Duration)
+    if 'performed_tasks' in p:
+        query_result = query_result.join(Task)
+    if 'recruting' in p:
+        query_result = query_result.join(Recruting)
+    if 'profile_type' in p:
+        query_result = query_result.join(SamplingProfile)
+
+    if 'lab' in p:
+        query_result = query_result.filter(
+            Experiment.lab_settings == 1
+        )
     if 'min' in p:
         min_s = int(p['min'])
         print(f'min={min_s}')
@@ -127,15 +126,36 @@ def list_articles():
         query_result = query_result.filter(
             ExperimentDesign.design == var
         )
-    # if 'duration' in p:
-    #     var = DurationType(p['duration'])
-    #     print(f'design={var}')
-    #     query_result = query_result.filter(
-    #         Duration.durantion_type == var
-    #     )
-
-    print(f'count={query_result.count()}')
+    if 'duration' in p:
+        var = DurationType(p['duration'])
+        print(f'design={var}')
+        query_result = query_result.filter(
+            Duration.durantion_type == var
+        )
+    if 'nature_of_data' in p:
+        for a_nature in p['nature_of_data']:
+            var = NatureOfDataSource(a_nature)
+            query_result = query_result.filter(
+                Measurement.measurement_type == var
+            )
+    if 'performed_tasks' in p:
+        for a_task in p['performed_tasks']:
+            var = TaskType(a_task)
+            query_result = query_result.filter(
+                Task.task_type == var
+            )
+    if 'recruting' in p:
+        for a_task in p['recruting']:
+            var = RecrutingType(a_task)
+            query_result = query_result.filter(
+                Recruting.recruiting_strategy == var
+            )
+    if 'profile_type' in p:
+        for a_task in p['profile_type']:
+            var = ProfileType(a_task)
+            query_result = query_result.filter(
+                SamplingProfile.profile == var
+            )
     # articles = query_result.paginate(page=page, per_page=10)
     articles = query_result.all()
-    print(len(articles))
     return render_template('detail_article2.html', posts=articles, messages=messages)

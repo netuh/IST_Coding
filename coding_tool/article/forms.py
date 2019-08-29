@@ -3,7 +3,6 @@ from wtforms import SubmitField, SelectField, SelectMultipleField, BooleanField,
 from wtforms.fields.html5 import IntegerRangeField
 from wtforms.widgets import html5
 from wtforms.validators import NumberRange
-#from wtforms.widgets import CheckboxInput, ListWidget
 
 
 class SelectArticleForm(FlaskForm):
@@ -13,11 +12,6 @@ class SelectArticleForm(FlaskForm):
         'Telephone', [NumberRange(min=2, max=196)], widget=html5.NumberInput(), default=2)
     sample_size_max = IntegerField(
         'Telephone', [NumberRange(min=2, max=196)], default=196)
-    # sample_size_min = IntegerRangeField(
-    #     'Sample Size Min', [NumberRange(min=2, max=196)], default=2)
-    # sample_size_max = IntegerRangeField(
-    #     'Sample Size Max', [NumberRange(min=2, max=196)], default=196)
-    guidelines = SelectMultipleField('Adopted Guidelines')
     designs = SelectField('Desing of Experiments')
     performed_tasks = SelectMultipleField('Task Types')
     recruting_type = SelectMultipleField('Recruitments')

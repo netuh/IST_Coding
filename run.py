@@ -70,13 +70,14 @@ def seed_guidelines():
         authors = row['authors']
         address = row['address']
         g = Guideline.query.get(guide_id)
+        p = Publication.query.get(int(paper_id))
         if not g:
             g = Guideline(guide_id=guide_id, title=title, year=year,
-                          authors=authors, address=address)
+                          authors=authors, address=address, referenced_by=p)
             db.session.add(g)
             db.session.commit()
-        p = Publication.query.filter_by(pub_id=paper_id).first()
-        g.referenced_by.append(p)
+        # p = Publication.query.filter_by(pub_id=paper_id).first()
+        # g.referenced_by.append(p)
     db.session.commit()
 
 
@@ -178,7 +179,7 @@ def seed_measuriments():
 @app.before_first_request
 def before_first_request_func():
     seed_publication()
-    # seed_guidelines()
+    seed_guidelines()
     seed_experiments()
     seed_sampling()
     seed_design()
