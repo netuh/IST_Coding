@@ -2,6 +2,6 @@
 
 
 #all virtual environment
-venv/
-coding_tool/site.db
+**/venv/
+**/site.db
 **/__pycache__

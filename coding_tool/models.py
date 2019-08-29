@@ -3,33 +3,12 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from coding_tool import db
 
-association_guideline = db.Table('association_guideline', db.metadata,
-                                 db.Column('pub_id', db.Integer,
-                                           db.ForeignKey('publication.pub_id')),
-                                 db.Column('guide_id', db.Integer,
-                                           db.ForeignKey('guideline.guide_id')),
-                                 )
-
-# association_profile = db.Table('association_profile', db.metadata,
-#                                db.Column('profile_id', db.Integer,
-#                                          db.ForeignKey('sampling_profile.profile_id')),
-#                                db.Column('sample_id', db.Integer,
-#                                          db.ForeignKey('sampling.sample_id')),
-#                                )
-
-# association_charac = db.Table('association_charac', db.metadata,
-#                               db.Column('charac_id', db.Integer,
-#                                         db.ForeignKey('sampling_charac.charac_id')),
-#                               db.Column('sample_id', db.Integer,
-#                                         db.ForeignKey('sampling.sample_id')),
-#                               )
-
-# association_task = db.Table('association_task', db.metadata,
-#                             db.Column('design_id', db.Integer,
-#                                       db.ForeignKey('experiment_design.design_id')),
-#                             db.Column('task_id', db.Integer,
-#                                       db.ForeignKey('task.task_id')),
-#                             )
+# association_guideline = db.Table('association_guideline', db.metadata,
+#                                  db.Column('pub_id', db.Integer,
+#                                            db.ForeignKey('publication.pub_id')),
+#                                  db.Column('guide_id', db.Integer,
+#                                            db.ForeignKey('guideline.guide_id')),
+#                                  )
 
 
 class Publication(db.Model):
@@ -58,9 +37,6 @@ class Guideline(db.Model):
     address = db.Column(db.String(200), nullable=False)
     referenced_by_id = db.Column(db.Integer, db.ForeignKey(
         'publication.pub_id'), nullable=False)
-
-    # referenced_by = db.relationship('Publication', secondary=association_guideline,
-    #                                 backref=db.backref('guidelines', lazy='dynamic'))
 
     def __repr__(self):
         return f"Guideline('{self.title}', '{self.year}')"
@@ -116,8 +92,6 @@ class Sampling(db.Model):
         "SamplingCharacteristic", backref="parent_charac", lazy=True)
     recruiting_strategies = db.relationship("Recruting", uselist=False,
                                             backref="parent_recru", lazy=True)
-    # characteristics = db.relationship(
-    #     'SamplingCharacteristic', secondary=association_charac)
 
     def __repr__(self):
         return f"Sampling('{self.recruitment_type}', '{self.sample_size}')"
