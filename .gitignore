@@ -1,7 +1,29 @@
-# Specify filepatterns you want git to ignore.
+*.py[co]
+*.DS_*
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
 
+# Installer logs
+pip-log.txt
 
-#all virtual environment
-**/venv/
-**/site.db
-**/__pycache__/**
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Translations
+*.mo
+
+#Mr Developer
+venv
+*.pyc
+build
