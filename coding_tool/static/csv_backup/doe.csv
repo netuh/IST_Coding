@@ -15,19 +15,48 @@ exp_id|factor_quantity|design|explicity_design|tasks|trial_duration
 14|1|Completely Randomized Desgin|0|compreension:2; maintenance:2|Short:2-hours
 15|1|Randomized Complete Block Design|1|maintenance:2|
 16|1|Paired Comparison Design|1|maintenance:4|
+17|1|Paired Comparison Design|0|maintenance:1; test:1|Short:5-hours
+18|1|Completely Randomized Desgin|0|inspection:1; design:1; construction:2|Short:2-hours
+19|1|Completely Randomized Desgin|0|inspection:1; design:1; construction:2|Short:2-hours
+20|1|Completely Randomized Desgin|0|construction:1|Short:8-hours
+21|1|Completely Randomized Desgin|0|design:2; construction:1; test:1|Long:2-weeks
+22|1|Completely Randomized Desgin|0|inspection:1|
+23|1|Paired Comparison Design|1|maintenance:1|Short:3-hours
+24|2|Completely Randomized Desgin|0|maintenance:9|
 25|1|Completely Randomized Desgin|0|Maintenance:4|
 26|2|Factorial Design|0|Debuging:19|Short:13-minutes
 27|1|Completely Randomized Desgin|0|construction:1|
 28|1|Completely Randomized Desgin|0|maintenance:5|
 29|1|Completely Randomized Desgin|0|construction:1; maintenance:12|Short:3-hours
+30|2|Factorial Design|0|Construction:1; inspection:1; debuging:1; test:1|Short:1.5-hours
+31|1|Completely Randomized Desgin|0|construction: 7; Maintenance: 2|
+32|1|Completely Randomized Desgin|1|inspection: 1|Short:4-hours
+33|1|Completely Randomized Desgin|1|Construction:1; Test:1|Short:100-hours
+34|1|Completely Randomized Desgin|0|construction:1; Maintenance:1; test:1|
+35|2|Factorial Design|1|maintenance:4; compreension:4|
 36|1|Completely Randomized Desgin|0|Compreension:3; maintenance:1; Debuging:1|
 37|1|Completely Randomized Desgin|0|test:1|
+38|1|Paired Comparison Design|0|Inspection:2|Short:1.5-hours
+39|1|Completely Randomized Desgin|0|construction:1|
+40|1|Paired Comparison Design|0|inspection:2|
+41|1|Completely Randomized Desgin|0|compreension:1|
+42|1|Randomized Complete Block Design|0|construction:4|
+43|2|Factorial Design|1|construction:1; maintenance:3|
+44|1|Completely Randomized Desgin|0|construction:1|
+45|1|Completely Randomized Desgin|0|construction:3|
 46|1|Randomized Complete Block Design|0|construction:2|
 47|1|Completely Randomized Desgin|0|maintenance:4; test:4|
 48|1|Completely Randomized Desgin|1|construction:2; test:2|
 49|6|Factorial Design|1|maintenance:4|Long:1-month
 50|1|Completely Randomized Desgin|0|Compreension:2; Debuging:1|Short:2-hours
 51|1|Completely Randomized Desgin|1|construction:1; maintenance:10|
+52|1|Paired Comparison Design|0|maintenance:2|
+53|2|Factorial Design|1|inspection:2|
+54|1|Paired Comparison Design|1|construction:1; maintenance: 3|
+55|1|Completely Randomized Desgin|0|construction:1; test:1|
+56|1|Paired Comparison Design|1|maintenance: 2|
+57|3|Factorial Design|1|construction:1; maintenance:4|
+58|1|Completely Randomized Desgin|0|maintenance:1; debuging:1; test:1|Short:1-hours
 59|1|Completely Randomized Desgin|0|compreension:1|Short:1.5-hours
 60|1|Incomplete Within-subjects Design|1|maintenance:2|Short:3-hours
 61|1|Completely Randomized Desgin|0|maintenance:2|Short:2-hours
@@ -35,6 +64,19 @@ exp_id|factor_quantity|design|explicity_design|tasks|trial_duration
 63|2|Factorial Design|1|inspection:1|Long:3-weeks
 64|3|Factorial Design|1|maintenance:1|Short:2-hours
 65|1|Completely Randomized Desgin|0|Compreension:3; construction:7|Short:2-hours
+66|1|Completely Randomized Desgin|0|construction:1|
+67|1|Completely Randomized Desgin|1|construction:1; test:1; inspection:1|
+68|1|Paired Comparison Design|0|maintenance:2|Short:4-hours
+69|1|Paired Comparison Design|1|construction:1; inspection:1; test:1|
+70|1|Paired Comparison Design|1|construction:1; inspection:1; test:1|
+71|1|Completely Randomized Desgin|0|maintenance:9|
+72|1|Completely Randomized Desgin|0|maintenance:7|
+73|1|Completely Randomized Desgin|0|maintenance:7|
+74|1|Completely Randomized Desgin|0|maintenance:7|
+75|1|Completely Randomized Desgin|0|maintenance:1|
+76|1|Completely Randomized Desgin|0|maintenance:2|
+77|1|Completely Randomized Desgin|0|maintenance:2|
+78|1|Completely Randomized Desgin|0|maintenance:1|
 79|1|Completely Randomized Desgin|0|maintenance:4|Short:4-hours
 80|1|Completely Randomized Desgin|0|Compreension:3;Debuging:1|Short:1.5-hours
 81|1|Randomized Complete Block Design|1|Compreension:9;maintenance:1|Short:10-minutes

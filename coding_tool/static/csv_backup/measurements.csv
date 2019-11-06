@@ -40,6 +40,54 @@ exp_id|type|instrument
 15|Subjective|form
 15|Time|tool
 16|Source Code|
+17|Subjective|form
+17|Subjective|form
+17|Time|form
+17|Subjective|form
+17|Subjective|form
+18|Time|form
+18|Time|form
+18|Time|form
+18|Time|form
+18|Source Code|
+18|Source Code|
+18|Source Code|
+18|Source Code|
+18|Source Code|
+18|Source Code|
+19|Source Code|
+19|Source Code|
+19|Source Code|
+19|Source Code|
+19|Source Code|
+19|Source Code|
+20|Time|experimenter
+20|Time|experimenter
+20|Time|experimenter
+20|Source Code|
+20|Source Code|
+20|Time|experimenter
+20|Time|experimenter
+20|Source Code|
+20|Source Code|
+20|Source Code|
+20|Subjective|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Time|form
+21|Source Code|
+21|Source Code|
+22|Time|form;tool
+22|Source Code|
+22|Source Code|
+23|Time|tool
+23|Source Code|
+24|Time|tool
 25|Time|tool
 26|Time|tool
 26|Source Code|
@@ -54,6 +102,27 @@ exp_id|type|instrument
 29|Source Code|
 29|Source Code|
 29|Source Code|
+30|Source Code|
+30|Time|tool
+31|Time|form
+31|Time|form
+31|Time|form
+31|Source Code|
+31|Source Code|
+31|Source Code|
+31|Source Code|
+31|Source Code|
+32|Source Code|
+32|Source Code|
+32|Time|
+33|Source Code|
+33|Source Code|
+33|Source Code|
+33|Subjective|form
+33|Subjective|form
+34|Subjective|questionary
+35|Time|tool
+35|Subjective|form
 36|Time|tool
 36|Subjective|form;tool
 36|Subjective|form;tool
@@ -61,6 +130,31 @@ exp_id|type|instrument
 36|Subjective|form;tool
 37|Source Code|
 37|Source Code|
+38|Time|experimenter
+38|Subjective|form
+38|Subjective|form
+38|Subjective|form
+39|Subjective|form
+39|Source Code|
+39|Source Code|
+39|Time|
+40|Source Code|
+40|Source Code|
+41|Time|
+41|Subjective|form
+41|Subjective|form
+42|Source Code|
+43|Time|tool
+43|Source Code|
+44|Time|tool;form
+44|Time|tool;form
+44|Source Code|
+44|Source Code|
+44|Source Code|
+44|Source Code|
+45|Time|form
+45|Subjective|form
+45|Subjective|form
 46|Source Code|
 46|Source Code|
 47|Time|form
@@ -79,6 +173,25 @@ exp_id|type|instrument
 51|Time|tool
 51|Time|tool
 51|Source Code|
+52|Time|experimenter;sheet
+52|Time|experimenter;sheet
+52|Time|experimenter;sheet
+53|Time|experimenter
+53|Source Code|
+53|Subjective|form
+54|Time|tool
+54|Source Code|
+55|Source Code|
+55|Source Code|
+55|Source Code|
+56|Time|tool
+57|Time|tool
+57|Time|tool
+57|Source Code|
+58|Time|tool
+58|Source Code|
+58|Source Code|
+58|Source Code|
 59|Time|form
 59|Subjective|form
 60|Time|experimenter
@@ -99,6 +212,40 @@ exp_id|type|instrument
 65|Time|experimenter
 65|Source Code|
 65|Subjective|form
+66|Source Code|
+66|Source Code|
+66|Subjective|form
+66|Time|tool;form
+67|Source Code|
+68|Time|tool
+68|Subjective|form
+68|Source Code|
+69|Time|tool
+69|Source Code|
+70|Time|tool
+70|Source Code|
+71|Source Code|
+71|Source Code|
+71|Source Code|
+71|Source Code|
+71|Time|form
+72|Time|form
+72|Source Code|
+73|Time|form
+74|Time|form
+75|Time|screenrecorder
+75|Subjective|video
+75|Source Code|
+75|Source Code|
+76|Time|experimenter
+76|Source Code|
+77|Time|experimenter
+77|Source Code|
+78|Subjective|form
+78|Source Code|
+78|Source Code|
+78|Source Code|
+78|Source Code|
 79|Time|experimenter
 79|Source Code|
 80|Subjective|form

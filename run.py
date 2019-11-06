@@ -19,7 +19,6 @@ def seed_publication():
 
     engine = db.get_engine()
     for index, row in df.iterrows():
-        # pub_id|title|year|venue|authors|institution|keywords
         pub_id = int(row['pub_id'])
         title = row['title']
         year = int(row['year'])
@@ -32,11 +31,6 @@ def seed_publication():
                         keywords=keywords)
         db.session.add(e)
     db.session.commit()
-    # df.to_sql('publication',
-    #           con=engine,
-    #           index=False,
-    #           index_label='id',
-    #           if_exists='replace')
 
 
 def seed_experiments():
@@ -72,14 +66,11 @@ def seed_guidelines():
         g = Guideline.query.get(guide_id)
         p = Publication.query.get(int(paper_id))
         if not g:
-            # g = Guideline(guide_id=guide_id, title=title, year=year,
-            #               authors=authors, address=address, referenced_by=p)
             g = Guideline(guide_id=guide_id, title=title, year=year,
                           authors=authors, address=address)
         g.referenced_by.append(p)
         db.session.add(g)
         db.session.commit()
-        # p = Publication.query.filter_by(pub_id=paper_id).first()
 
     db.session.commit()
 
@@ -122,7 +113,6 @@ def seed_sampling():
                         charac=p[0], info=p[1], parent_charac=s)
                 else:
                     a = SamplingCharacteristic(charac=p[0], parent_charac=s)
-                # s.characteristics.append(a)
         s.sample_total = total
         db.session.add(s)
         db.session.commit()
@@ -141,8 +131,6 @@ def seed_design():
         explicity_design = row['explicity_design']
         tasks = row['tasks']
         trial_duration = row['trial_duration']
-        # s = ExperimentDesign(factor_quantity=factor_quantity, design=DesignType(design),
-        #                      is_explicity_design=explicity_design)
         s = ExperimentDesign(factor_quantity=factor_quantity, design=design,
                              is_explicity_design=explicity_design)
         p = Experiment.query.get(int(exp_id))
@@ -174,8 +162,6 @@ def seed_measuriments():
         m_type = row['type']
         m_instrument = row['instrument']
         p = Experiment.query.get(exp_id)
-        print('Exp id =')
-        print(exp_id)
         m = Measurement(measurement_instruments=m_instrument,
                         measurement_type=NatureOfDataSource(m_type),
                         measu_parent=p.design)
