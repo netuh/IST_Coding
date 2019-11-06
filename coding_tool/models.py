@@ -3,12 +3,12 @@ from datetime import datetime
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from coding_tool import db
 
-# association_guideline = db.Table('association_guideline', db.metadata,
-#                                  db.Column('pub_id', db.Integer,
-#                                            db.ForeignKey('publication.pub_id')),
-#                                  db.Column('guide_id', db.Integer,
-#                                            db.ForeignKey('guideline.guide_id')),
-#                                  )
+association_guideline = db.Table('association_guideline', db.metadata,
+                                 db.Column('pub_id', db.Integer,
+                                           db.ForeignKey('publication.pub_id')),
+                                 db.Column('guide_id', db.Integer,
+                                           db.ForeignKey('guideline.guide_id')),
+                                 )
 
 
 class Publication(db.Model):
@@ -19,10 +19,10 @@ class Publication(db.Model):
     venue = db.Column(db.String(200), nullable=False)
     authors = db.Column(db.String(200), nullable=False)
     institution = db.Column(db.String(200), nullable=False)
-    keywords = db.Column(db.String(200), nullable=False)
+    keywords = db.Column(db.String(200))
     experiments = db.relationship("Experiment", backref="exp_pub", lazy=True)
-    guidelines = db.relationship(
-        "Guideline", backref="referenced_by", lazy=True)
+    # guidelines = db.relationship(
+    #     "Guideline", backref="referenced_by", lazy=True)
 
     def __repr__(self):
         return f"Publication('{self.title}', '{self.year}')"
@@ -35,8 +35,10 @@ class Guideline(db.Model):
     year = db.Column(db.Integer, nullable=False)
     authors = db.Column(db.String(200), nullable=False)
     address = db.Column(db.String(200), nullable=False)
-    referenced_by_id = db.Column(db.Integer, db.ForeignKey(
-        'publication.pub_id'), nullable=False)
+    referenced_by = db.relationship('Publication', secondary=association_guideline,
+                                    backref=db.backref('guidelines', lazy='dynamic'))
+    # referenced_by_id = db.Column(db.Integer, db.ForeignKey(
+    #     'publication.pub_id'), nullable=False)
 
     def __repr__(self):
         return f"Guideline('{self.title}', '{self.year}')"
@@ -149,7 +151,8 @@ class ExperimentDesign(db.Model):
         'experiment.exp_id'), nullable=False)
     experiment = db.relationship("Experiment", back_populates="design")
     factor_quantity = db.Column(db.Integer, nullable=False)
-    design = db.Column(db.Enum(DesignType), nullable=False)
+    # design = db.Column(db.Enum(DesignType), nullable=False)
+    design = db.Column(db.String(100), nullable=False)
     is_explicity_design = db.Column(db.Integer, nullable=False)
     tasks = db.relationship('Task', backref="task_parent", lazy=True)
     duration = db.relationship("Duration", backref="dura_parent", lazy=True)
@@ -224,6 +227,7 @@ class NatureOfDataSource(Enum):
     TIME = 'Time'
     SOURCE_CODE = 'Source Code'
     SUBJECTIVE = 'Subjective'
+    OTHERS = 'Others'
 
 
 class Measurement(db.Model):

@@ -78,3 +78,56 @@ sample_id|pub_id|sample_profile|sample_characteristics|recruiting_strategy|power
 77|67|gradstudent:58||Course|0
 78|68|undergradstudent:20||Course|0
 79|69|professional: 27|location: Brazil|Paid|0
+80|70|professional: 23|gender; age:33; ProfExp:10|Paid|0
+81|71|professional: 26; gradStudent:19|ProfExp||1
+82|72|professional: 44; gradStudent:5|ProfExp;progExp;C++Exp||0
+83|73|gradStudent:33|JavaExp|No Reward|0
+84|74|gradStudent:28; undergradstudent:3|ProgExp:3.4;profExp;JavaExp:3.4||0
+85|75|gradStudent:7||Course|0
+86|75|gradStudent:22||Course|0
+87|76|professional:24;undergradstudent:3;gradStudent:39||Course|0
+88|77|undergradstudent:7;gradStudent:13|||0
+89|78|gradStudent:10|JavaExp:2; EclipseExp|No Reward|0
+90|79|professional:15|ProgExp:2; age:41.6; gender|Paid|0
+91|80|undergradstudent:2;gradStudent:14|gender|No Reward|0
+92|80|professional:20|gender; age|No Reward|0
+93|81|gradStudent:20;undergradstudent:2|||0
+94|81|gradStudent:4;undergradstudent:10|||0
+95|82|professional:2;undergradstudent:6||Paid|0
+96|83|gradStudent:24|ProfExp|Course|0
+97|84|gradStudent:25||Course|0
+98|85|gradStudent:12|JavaExp; EclipseExp|Paid|0
+99|86|student:12|gender;age;JavaExp||0
+100|87|gradStudent:14;professional:21|dropped:6;ProgExp;JavaExp;TestExp|Course|1
+101|88|gradStudent:9;professional:1|JavaExp|No Reward|0
+102|89|student:18|||0
+103|90|undergradstudent:42;professional:12|age;ProgExp;C++Exp||0
+104|91|gradStudent:21;professional:7;undergradstudent:2|ProfExp;JavaExp||0
+105|92|student:56|ProfExp||0
+106|93|undergradstudent:16|||0
+107|94|gradStudent:2;undergradstudent:27||Paid|0
+108|95|student:70||Paid|0
+109|96|gradStudent:7;professional:48;undergradstudent:27|age;gender;progExp:6;JavaExp:3|No Reward|0
+110|97|professional:18|ProgExp||0
+111|98|gradStudent:30|ProgExp:5||0
+112|99|professional:18||No Reward|0
+113|100|professional:20||No Reward|0
+114|101|gradStudent:11|JavaExp|No Reward|0
+115|102|student:5;professional:87|profExp;ProgFreq;RevExp|No Reward|0
+116|103|professional:15|gender;JavaExp;EclipseExp||0
+117|104|professional:9;student:3||Paid|0
+118|105|professional:19||No Reward|0
+119|106|professional:135|ProfExp;ProgExp;JavaExp|No Reward|0
+120|107|undergradstudent:60|||0
+121|108|student:120||Course|0
+122|109|undergradstudent:55||Paid|0
+123|109|undergradstudent:42||Paid|0
+124|110|undergradstudent:30||No Reward|0
+125|111|gradStudent:30||Course|0
+126|112|gradStudent:8;undergradstudent:2|||0
+127|113|professional:11||Paid|0
+128|114|undergradstudent:10|JavaExp;ProgExp|Course|0
+129|115|undergradstudent:35|JavaExp|Course|0
+130|116|gradStudent:14;professional:1|javaExp;EclipseExp||1
+131|117|gradStudent:158|gender;age;progExp:5.6||1
+132|118|professional:72|age:35; ProgExp:14; C#Exp:8||1

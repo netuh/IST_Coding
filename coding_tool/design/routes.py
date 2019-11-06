@@ -14,10 +14,12 @@ def design():
     c = Counter()
     c2 = Counter()
     for a_desing in desings:
-        word_list.append(a_desing.design.value)
+        # word_list.append(a_desing.design.value)
+        word_list.append(a_desing.design)
         c2.update([a_desing.factor_quantity])
     c.update(word_list)
-    pie = create_plot_pie(c)
+    # pie = create_plot_pie(c)
+    pie = create_plot_bar(c)
     bar = create_plot_bar(c2)
     return render_template('design.html', plotDesign=pie, plotFactor=bar)
 

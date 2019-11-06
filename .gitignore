@@ -4,4 +4,4 @@
 #all virtual environment
 **/venv/
 **/site.db
-**/__pycache__
+**/__pycache__/**

@@ -78,3 +78,56 @@ exp_id|factor_quantity|design|explicity_design|tasks|trial_duration
 77|1|Completely Randomized Desgin|0|maintenance:2|
 78|1|Completely Randomized Desgin|0|maintenance:1|
 79|1|Completely Randomized Desgin|0|maintenance:4|Short:4-hours
+80|1|Completely Randomized Desgin|0|Compreension:3;Debuging:1|Short:1.5-hours
+81|1|Randomized Complete Block Design|1|Compreension:9;maintenance:1|Short:10-minutes
+82|1|cross validation experimental design|1|construction:15|Short:2-hours
+83|1|counterbalanced within-subjects design|1|construction:2|Long:14-weeks
+84|1|counter-balanced design|1|debuging:4|Short:2-hours
+85|1|counter-balanced design|1|debuging:4|Short:2-hours
+86|1|counter-balanced design|1|debuging:4|Short:2-hours
+87|1|Paired Comparison Design|0|Compreension:16|Short:2-hours
+88|1|Paired Comparison Design|0|debuging:4|Short:2-hours
+89|1|Paired Comparison Design|0|maintenance:1|Short:2-hours
+90|1|Paired Comparison Design|0|Compreension:8|Short:1.5-hours
+91|1|between-subject design|1|Compreension:6|
+92|1|between-subject design|1|Compreension:4|
+93|1|Paired Comparison Design|0|construction:15|
+94|1|Paired Comparison Design|0|construction:15|
+95|1|Paired Comparison Design|0|construction:15|
+96|1|Latin Square Design|1|maintenance:4|Short:2.5-hours
+97|2|2x2 randomized between-subject factorial design|1|construction:2|
+98|1|counterbalanced design|1|maintenance:2|Short:40-minutes
+99|1|between-subjects design|1|construction:1;maintenance:2;debuging:2|Short:10-minutes
+100|1|one-factor two-level, within-subjects design|1|construction:3;maintenance:1|
+101|1|between-subjects design|1|maintenance:2|Short:1-hours
+102|1|between-subjects design|1|debuging:6|Short:30-minutes
+103|1|Paired Comparison Design|0|construction:3|Short:40-minutes
+104|1|Latin Square Design|0|maintenance:2|Short:2-hours
+105|1|Completely Randomized Desgin|0|maintenance:10|Short:45-minutes
+106|2|2x2 randomized between-subject factorial design|0|maintenance:2;debuging:2|Short:2.5-hours
+107|1|Paired Comparison Design|0|inspection:4|
+108|1|2x2 randomized between-subject factorial design|0|Compreension:3|
+109|1|Within-subjects design|1|Compreension:4|
+110|1|Paired Comparison Design|0|Compreension:1|Short:90-hours
+111|1|Completely Randomized Desgin|0|test:5|
+112|1|Design AxB|1|Compreension:6|Short:45-minutes
+113|1|between-subject design|1|maintenance:4|
+114|1|Paired Comparison Design|0|maintenance:4|
+115|1|counter-balanced repeated measures design|1|maintenance:2|
+116|1|Paired Comparison Design|0|inspection:4|
+117|1|Completely Randomized Desgin|0|Compreension:12|Short:2.5-hours
+118|1|Completely Randomized Desgin|0|Compreension:3|Short:2.5-hours
+119|1|between-subject design|1|construction:3|
+120|1|repeated measures with cross-over and control group experimental design|1|construction:3|
+121|1|Completely Randomized Desgin|0|construction:3|
+122|1|AB/BA crossover design|1|Compreension:2|Short:1.5-hours
+123|1|AB/BA crossover design|1|maintenance:2|Short:1.5-hours
+124|1|within-subjects design|1|construction:4|
+125|1|Completely Randomized Desgin|0|Compreension:1|Short:1.5-hours
+126|1|cross-evaluation design|1|Compreension:1|Short:4-hours
+127|1|Completely Randomized Desgin|0|construction:1|
+128|1|Paired Comparison Design|1|Compreension:20|
+129|1|within-subjects design|1|maintenance:2; Compreension:2|
+130|1|Paired Comparison Design|0|construction:4|
+131|1|Within Subject Design|1|Compreension:20|
+132|1|Within Subject Design|1|Compreension:5|
